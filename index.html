@@ -3,208 +3,118 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mirror — centered translucent box with typewriter</title>
+<title>The Mirror’s Secret — Intro</title>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Creepster&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-black: #000000;
-    --accent-red: #c72b2b;      /* red used for text / accents */
-    --muted: #d1b2b2;
-    --panel-gray: 20,20,20;     /* RGB of dark gray (no alpha) */
-    --panel-alpha: 0.15;        /* panel opacity: 0.15 = 15% opaque (85% transparent) */
-    --panel-radius: 12px;
-    --max-width: 880px;
+    --bg-black: #000;
+    --accent-red: #c72b2b;
+    --panel-gray: 20,20,20;
+    --panel-alpha: 0.15;
   }
 
-  /* Page background: pure black for strong red-on-black effect */
-  html,body{
-    height:100%;
+  body{
     margin:0;
-    background: var(--bg-black);
-    font-family: "Merriweather", serif;
-    color: var(--accent-red);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-
-  /* Centering wrapper (full-screen centering) */
-  .center-wrap{
-    min-height:100vh;
+    height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
+    background:var(--bg-black);
+    color:var(--accent-red);
+    font-family:"Merriweather",serif;
+    overflow:hidden;
   }
 
-  /* Translucent dark-grey panel */
-  .panel {
-    width:100%;
-    max-width: var(--max-width);
-    background: rgba(var(--panel-gray), var(--panel-alpha)); /* dark grey with 15% opacity */
-    border-radius: var(--panel-radius);
-    padding: 28px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    border: 1px solid rgba(199,43,43,0.06);
-    backdrop-filter: blur(6px); /* subtle blur of background behind panel */
-    -webkit-backdrop-filter: blur(6px);
-  }
-
-  /* Typewriter area: content is centered */
-  .typewrap {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+  .panel{
+    background:rgba(var(--panel-gray),var(--panel-alpha));
+    border:1px solid rgba(255,0,0,0.08);
+    border-radius:12px;
+    padding:30px 40px;
+    max-width:800px;
     text-align:center;
-    gap:14px;
-    min-height:160px;
-    padding:18px;
+    box-shadow:0 0 30px rgba(255,0,0,0.2);
+    backdrop-filter:blur(6px);
   }
 
-  h1 {
-    margin:0;
-    font-family: "Creepster", cursive;
-    color: var(--accent-red);
-    font-size: clamp(22px, 3.2vw, 36px);
-    letter-spacing: 1px;
+  h1{
+    font-family:"Creepster",cursive;
+    font-size:36px;
+    margin:0 0 20px;
+    color:var(--accent-red);
   }
 
-  .type {
-    color: var(--accent-red);
-    font-size: clamp(14px, 2.4vw, 18px);
+  #typewriter{
+    font-size:18px;
     line-height:1.6;
-    max-width: 820px;
+    min-height:120px;
   }
 
-  /* Typewriter cursor */
-  .type .cursor{
+  .cursor{
     display:inline-block;
     width:10px;
     height:1.2em;
-    background: var(--accent-red);
-    margin-left:6px;
+    background:var(--accent-red);
+    margin-left:4px;
+    animation:blink 1s steps(2,start) infinite;
     vertical-align:middle;
-    animation: blink 1s steps(2, start) infinite;
   }
-  @keyframes blink { 50% { opacity: 0 } }
+  @keyframes blink{50%{opacity:0}}
 
-  /* Controls (if you want a "Continue" button) */
-  .controls { display:flex; gap:10px; margin-top:10px; justify-content:center; }
-  .btn {
-    background: transparent;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.06);
-    padding:8px 12px;
+  .controls{margin-top:20px;}
+  button{
+    background:var(--accent-red);
+    border:none;
+    color:#000;
+    padding:10px 16px;
     border-radius:8px;
+    font-weight:bold;
     cursor:pointer;
+    display:none;
   }
-  .btn.primary { background: var(--accent-red); color:#080808; border: none; font-weight:700; }
-
-  /* Respect reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .type .cursor { animation: none; }
-  }
-
-  /* Small screens: tighten padding */
-  @media (max-width:520px){
-    .panel { padding:18px; }
-    .type { font-size:16px; }
-  }
-
+  button:hover{background:#ff4444;}
 </style>
 </head>
 <body>
-  <div class="center-wrap">
-    <section class="panel" role="region" aria-label="Narration box">
-      <div class="typewrap">
-        <h1>The Mirror’s Secret</h1>
-
-        <!-- the typing element -->
-        <div class="type" id="typewriter" aria-live="polite"></div>
-
-        <!-- optional controls -->
-        <div class="controls">
-          <button class="btn" id="restartBtn" onclick="location.reload()">Restart</button>
-          <button class="btn primary" id="continueBtn" style="display:none" onclick="onContinue()">Continue</button>
-        </div>
-      </div>
-    </section>
+  <div class="panel">
+    <h1>The Mirror’s Secret</h1>
+    <div id="typewriter"></div>
+    <div class="controls">
+      <button id="continueBtn">Continue</button>
+    </div>
   </div>
 
 <script>
-/* Typewriter script
-   - phrases: array of strings to type sequentially
-   - centered, accessible; shows a Continue button at the end
-*/
 const phrases = [
-  "You stand before the glass. It breathes like an old heart.",
-  "A whisper curls across the surface — your name, then a pause.",
-  "The mirror only shows you what you hide."
+  "You stand before the ancient mirror. Its surface ripples like water...",
+  "Whispers rise from the glass — voices you cannot name.",
+  "Your reflection tilts its head — but you haven’t moved."
 ];
 
-const typeEl = document.getElementById('typewriter');
-const continueBtn = document.getElementById('continueBtn');
-const restartBtn = document.getElementById('restartBtn');
+const typeEl = document.getElementById("typewriter");
+const btn = document.getElementById("continueBtn");
+let i = 0, j = 0, current = "", typing = true;
 
-/* typing settings */
-const CHAR_DELAY = 28;     // ms per character (lower = faster)
-const PHRASE_DELAY = 700;  // delay between phrases
-
-let currentPhrase = 0;
-let charIndex = 0;
-let typing = true;
-
-function typeLoop(){
-  if(currentPhrase >= phrases.length){
-    // finished all phrases
-    showDone();
-    return;
-  }
-  const phrase = phrases[currentPhrase];
-  if(charIndex < phrase.length){
-    // add next character
-    typeEl.innerHTML = phrase.slice(0, charIndex + 1) + '<span class="cursor" aria-hidden="true"></span>';
-    charIndex++;
-    setTimeout(typeLoop, CHAR_DELAY);
+function type(){
+  if(i < phrases.length){
+    current = phrases[i];
+    if(j < current.length){
+      typeEl.innerHTML = current.substring(0,j+1) + '<span class="cursor"></span>';
+      j++;
+      setTimeout(type,30);
+    } else {
+      j = 0; i++;
+      typeEl.innerHTML += "<br><br>";
+      setTimeout(type,600);
+    }
   } else {
-    // phrase complete -> pause then next phrase
-    charIndex = 0;
-    currentPhrase++;
-    setTimeout(()=> {
-      // add a line break between phrases
-      typeEl.innerHTML = (typeEl.innerHTML.replace(/<span class="cursor" aria-hidden="true"><\\/span>$/, '')) + '<br><br>';
-      typeLoop();
-    }, PHRASE_DELAY);
+    // done
+    typeEl.innerHTML = typeEl.innerHTML.replace(/<span class="cursor"><\/span>/g, "");
+    btn.style.display = "inline-block";
   }
 }
 
-/* when all done */
-function showDone(){
-  // remove cursor
-  typeEl.innerHTML = typeEl.innerHTML.replace(/<span class="cursor" aria-hidden="true"><\\/span>$/, '');
-  // reveal continue button
-  continueBtn.style.display = 'inline-block';
-  // set aria message
-  typeEl.setAttribute('aria-label', phrases.join(' '));
-}
-
-/* Continue handler (example) */
-function onContinue(){
-  // example: go to chapter1.html
-  window.location.href = 'chapter1.html';
-}
-
-/* start typing but respect reduced-motion */
-const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(prefersReduced){
-  // instant output (no animation)
-  typeEl.innerHTML = phrases.join('<br><br>');
-  showDone();
-} else {
-  // start animation
-  typeLoop();
-}
-
+btn.addEventListener("click", ()=>{ window.location.href = "chapter1.html"; });
+type();
 </script>
 </body>
 </html>
