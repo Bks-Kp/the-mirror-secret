@@ -1,64 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 1 – The Mirror Whispers</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 1 — The Mirror Whispers</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/mirror-bg.jpg');">
-<div class="overlay"></div>
-<div class="content">
-  <h1>Chapter 1: The Mirror Whispers</h1>
-  <p id="story"></p>
+<body style="background: url('images/chapter2-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main" aria-label="Chapter 1">
+      <h1 class="h-title">Chapter 1 — The Mirror Whispers</h1>
+      <div id="story" class="typewriter"></div>
 
-  <div id="puzzle" style="display:none;">
-    <p><b>Riddle:</b> “The mirror shows not your face but what you hide.  
-    Type the hidden word to unlock the truth.”</p>
-    <input id="answer" placeholder="Your answer...">
-    <button onclick="check()">Submit</button>
-    <p id="result"></p>
+      <div class="input">
+        <input id="answer1" type="text" placeholder="Whisper 'heart'..." />
+        <div><button class="btn" onclick="checkTextAnswer('answer1','heart',[], 'chapter2.html')">Submit</button></div>
+      </div>
+      <div class="small">Tip: answers are case-insensitive.</div>
+    </div>
   </div>
 
-  <button id="restart" onclick="restartGame()">Restart</button>
-</div>
+  <script src="script.js"></script>
+  <script>
+    const txt1 = `You open your eyes to glass and shadow.
+A voice brushes the surface — soft, certain. It calls your name: Kalpana.`;
 
-<script>
-const story = [
-  "The mirror hums softly. Symbols dance across its surface.",
-  "Kalpana notices faint letters forming in the mist — H, E, A, R, T.",
-  "She realizes… the mirror isn’t just alive — it’s connected to someone.",
-  "A whisper: ‘Your heart knows me… follow the signs.’"
-];
-
-let i = 0, storyEl = document.getElementById('story');
-function type() {
-  if (i < story.length) {
-    storyEl.innerHTML += `<p>${story[i]}</p>`;
-    i++;
-    setTimeout(type, 1700);
-  } else {
-    document.getElementById('puzzle').style.display = 'block';
-  }
-}
-
-function check() {
-  const ans = document.getElementById("answer").value.toLowerCase().trim();
-  if (ans === "heart") {
-    document.getElementById("result").innerText = "The mirror glows red — and reveals a door. Proceed to the next mystery.";
-    localStorage.setItem("mirror-progress", "chapter2");
-    setTimeout(() => window.location.href = "chapter2.html", 2500);
-  } else {
-    document.getElementById("result").innerText = "The mirror stays silent...";
-  }
-}
-
-function restartGame() {
-  localStorage.clear();
-  window.location.href = "index.html";
-}
-
-window.onload = type;
-</script>
+    typeWriter(txt1,'story',28, ()=> saveProgress('chapter1'));
+  </script>
 </body>
 </html>
