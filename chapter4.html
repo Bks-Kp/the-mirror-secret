@@ -1,88 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chapter 4 — The Shadow Between Worlds</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 4 — The Shadow Between Worlds</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/chapter4-bg.jpg');">
-<div class="overlay"></div>
+<body style="background: url('images/chapter4-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main">
+      <h1 class="h-title">Chapter 4 — The Shadow Between Worlds</h1>
 
-<div class="content">
-  <h1>Chapter 4: The Shadow Between Worlds</h1>
+      <div id="story" class="typewriter"></div>
 
-  <div id="narr" class="narration"></div>
+      <div class="choice-row">
+        <button class="choice" onclick="(function(){ saveProgress('chapter4'); location.href='chapter5.html'; })()">Light Reflection</button>
+        <button class="choice" onclick="flash('The shadow recoils — not the truth')">Shadow Reflection</button>
+      </div>
 
-  <div id="puzzle" style="display:none;margin-top:18px">
-    <p><strong>Puzzle — Choose the reflection that tells the truth</strong></p>
-    <p style="color:var(--muted)">Two mirrors stand opposite: one shows soft light, the other a hungry shadow. Which speaks truth?</p>
-
-    <div style="display:flex;gap:14px;justify-content:center;margin-top:12px">
-      <button id="lightBtn" class="btn">Light Reflection</button>
-      <button id="shadowBtn" class="btn">Shadow Reflection</button>
+      <div class="small">Choose the mirror that speaks true.</div>
     </div>
-
-    <div id="res" style="margin-top:12px;color:crimson;font-weight:700"></div>
   </div>
 
-  <div style="margin-top:20px">
-    <button onclick="restart()" class="btn">Restart</button>
-  </div>
-</div>
-
-<script>
-/*
- Chapter 4:
- - narration then puzzle: choose 'light' (truth) or 'shadow' (false)
- - If light chosen -> proceed to chapter5 and set a saved clue
- - If shadow chosen -> show failure hint and allow retry
-*/
-
-const narration = [
-  "The corridor narrows into a room of twin glass.",
-  "One reflection is gentle; one is distorted and hungry.",
-  "The heart tugs at the gentle mirror — yet fear wants the other."
-];
-
-const narrEl = document.getElementById('narr');
-const puzzleWrap = document.getElementById('puzzle');
-const resEl = document.getElementById('res');
-
-function typeWriter(lines, idx=0, cb){
-  if(idx >= lines.length){ if(cb) cb(); return; }
-  let i = 0, text = lines[idx];
-  function step(){
-    narrEl.innerHTML = (narrEl.innerHTML || '') + text[i] || '';
-    i++;
-    if(i <= text.length) setTimeout(step, 18); else {
-      narrEl.innerHTML += '<br><br>';
-      setTimeout(()=> typeWriter(lines, idx+1, cb), 420);
-    }
-  }
-  step();
-}
-
-document.getElementById('lightBtn').addEventListener('click', ()=> {
-  resEl.innerText = "The light speaks gently and says: 'Truth remembers.'";
-  // save clue and progress
-  try{ localStorage.setItem('mirror-clue-shadow','light'); localStorage.setItem('mirror-progress','chapter5'); }catch(e){}
-  setTimeout(()=> location.href = 'chapter5.html', 1200);
-});
-
-document.getElementById('shadowBtn').addEventListener('click', ()=> {
-  resEl.innerText = "The shadow sneers — falsehood echoes. The glass will not open.";
-  // small shake effect then clear
-  setTimeout(()=> { resEl.innerText = ''; }, 1400);
-});
-
-function restart(){ localStorage.clear(); window.location.href = 'index.html'; }
-
-window.onload = function(){
-  typeWriter(narration, 0, ()=>{
-    puzzleWrap.style.display = 'block';
-  });
-};
-</script>
+  <script src="script.js"></script>
+  <script>
+    const txt4 = `Two mirrors face each other — one clear and warm, the other fractured and hungry.
+Which one will you trust?`;
+    typeWriter(txt4,'story',28, ()=> {});
+  </script>
 </body>
 </html>
