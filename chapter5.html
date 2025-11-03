@@ -1,85 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chapter 5 — The Voice in the Dark</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 5 — The Voice in the Dark</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/chapter5-bg.jpg');">
-<div class="overlay"></div>
+<body style="background: url('images/chapter5-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main">
+      <h1 class="h-title">Chapter 5 — The Voice in the Dark</h1>
 
-<div class="content">
-  <h1>Chapter 5: The Voice in the Dark</h1>
+      <div id="story" class="typewriter"></div>
 
-  <div id="narr" class="narration"></div>
+      <div class="input">
+        <input id="answer5" type="text" placeholder="Type the name you hear..." />
+        <div><button class="btn" onclick="checkTextAnswer('answer5','bharath',['bks','b k s','bharath k','bharath ks','bharath (heart)'],'chapter6.html')">Submit</button></div>
+      </div>
 
-  <div id="puzzle" style="display:none;margin-top:18px">
-    <p><strong>Puzzle — Speak the name you hear</strong></p>
-    <p style="color:var(--muted)">A voice says a single name. Type it exactly as it sounds to you.</p>
-
-    <input id="nameInput" placeholder="Type the name..." style="width:80%;margin-top:8px;padding:10px;border-radius:6px;border:1px solid #420000;background:#070707;color:var(--accent)">
-    <div style="margin-top:12px">
-      <button id="submit" class="btn primary">Submit</button>
-      <div id="res" style="margin-top:12px;color:crimson;font-weight:700"></div>
+      <div class="small">Spell the name the voice kept saying.</div>
     </div>
   </div>
 
-  <div style="margin-top:20px">
-    <button onclick="restart()" class="btn">Restart</button>
-  </div>
-</div>
-
-<script>
-/*
- Chapter 5:
- - narration then prompt; expected canonical answer 'bharath' (case-insensitive)
- - on success, save final clue and go to chapter6
-*/
-
-const lines = [
-  "The cave swallows sound, but the voice is close.",
-  "It says a name once uttered by moonlight and river: a syllable that keeps returning.",
-  "You know this voice. The memory sits like an ember under your ribs."
-];
-
-const narrEl = document.getElementById('narr');
-const puzzleWrap = document.getElementById('puzzle');
-const resEl = document.getElementById('res');
-const inputEl = document.getElementById('nameInput');
-
-function typeWriter(lines, idx=0, cb){
-  if(idx >= lines.length){ if(cb) cb(); return; }
-  let i = 0, text = lines[idx];
-  function step(){
-    narrEl.innerHTML = (narrEl.innerHTML || '') + text[i] || '';
-    i++;
-    if(i <= text.length) setTimeout(step, 20); else {
-      narrEl.innerHTML += '<br><br>';
-      setTimeout(()=> typeWriter(lines, idx+1, cb), 420);
-    }
-  }
-  step();
-}
-
-document.getElementById('submit').addEventListener('click', ()=>{
-  const val = inputEl.value.trim().toLowerCase();
-  const accepted = ['bharath','bharath k','bharath ks','bharath (heart)'];
-  if(accepted.includes(val) || val === 'bharath'){
-    resEl.innerText = "A bell rings inside the glass. The final door cracks open.";
-    try{ localStorage.setItem('mirror-progress','chapter6'); localStorage.setItem('mirror-found','bharath'); }catch(e){}
-    setTimeout(()=> location.href = 'chapter6.html', 1200);
-  } else {
-    resEl.innerText = "The voice withdraws. That is not the name it remembers.";
-    setTimeout(()=> resEl.innerText = '', 1200);
-  }
-});
-
-function restart(){ localStorage.clear(); window.location.href = 'index.html'; }
-
-window.onload = function(){
-  typeWriter(lines, 0, ()=> { puzzleWrap.style.display = 'block'; });
-};
-</script>
+  <script src="script.js"></script>
+  <script>
+    const txt5 = `A single syllable echoes in the cave — a name carried by river and thread.
+It sounds like something you once whispered into the dark.`;
+    typeWriter(txt5,'story',28, ()=> saveProgress('chapter5'));
+  </script>
 </body>
 </html>
