@@ -1,43 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Mirror Secret</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Mirror's Secret — Start</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Small index-specific overrides to match the game's theme */
+    :root{--accent:#c72b2b;--muted:#b9b9b9}
+    body{background:#000;color:var(--accent);font-family: "Merriweather", serif;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .cover{max-width:980px;width:94%;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(8,0,0,0.85), rgba(0,0,0,0.6));border:1px solid rgba(199,43,43,0.06);box-shadow:0 12px 36px rgba(0,0,0,0.6)}
+    .top{display:flex;gap:18px;align-items:center}
+    .title{font-family:Creepster, cursive;font-size:36px;color:var(--accent);margin:0}
+    .subtitle{color:rgba(255,255,255,0.12);margin-left:auto;font-size:13px}
+    .hero{display:flex;gap:18px;align-items:center;margin-top:18px;flex-wrap:wrap}
+    .hero img{width:150px;height:220px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+    .intro{flex:1;min-width:240px}
+    .intro p{color:var(--muted);line-height:1.6}
+    .controls{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .btn.primary{background:var(--accent);color:#111;border-color:transparent;font-weight:700}
+    .small{font-size:13px;color:rgba(255,255,255,0.12);margin-top:12px}
+    .links{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+    a.chlink{color:var(--muted);text-decoration:none;border:1px dashed rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px}
+    footer{margin-top:18px;color:rgba(255,255,255,0.10);font-size:13px}
+    @media(max-width:520px){ .hero img{width:110px;height:160px} .title{font-size:28px}}
+  </style>
 </head>
-<body style="background-image: url('images/mirror-bg.jpg');">
-<div class="overlay"></div>
+<body>
+  <div class="cover" role="main" aria-label="The Mirror's Secret cover">
+    <div class="top">
+      <h1 class="title">The Mirror's Secret</h1>
+      <div class="subtitle">Heart &amp; Brain — 6 Chapters</div>
+    </div>
 
-<div class="content">
-  <h1>The Mirror Secret</h1>
-  <p id="story"></p>
-  <button id="next" style="display:none;" onclick="nextChapter()">Enter the Mirror</button>
-</div>
+    <div class="hero">
+      <img src="images/kalpana.png" alt="Silhouette of Kalpana" id="kalpanaArt" onerror="this.style.display='none'">
+      <div class="intro">
+        <p><strong style="color:var(--accent)">Play the romantic mystery</strong> — Kalpana wakes inside an abandoned mansion where every mirror reflects another memory. You (the Heart) whisper clues. Follow the chapters, solve the puzzles, and reveal the final truth.</p>
+
+        <div class="controls">
+          <button id="newGame" class="btn primary">New Game</button>
+          <button id="resume" class="btn" style="display:none">Resume</button>
+          <button id="viewChapters" class="btn">Chapters (jump)</button>
+        </div>
+
+        <div class="small" id="progressText">Progress: <span id="progressLabel">Not started</span></div>
+
+        <div class="links" id="chapterLinks" style="display:none;">
+          <!-- Quick links for testing / manual navigation -->
+          <a class="chlink" href="chapter1.html">Chapter 1</a>
+          <a class="chlink" href="chapter2.html">Chapter 2</a>
+          <a class="chlink" href="chapter3.html">Chapter 3</a>
+          <a class="chlink" href="chapter4.html">Chapter 4</a>
+          <a class="chlink" href="chapter5.html">Chapter 5</a>
+          <a class="chlink" href="chapter6.html">Chapter 6</a>
+        </div>
+
+        <div class="small" style="margin-top:10px">Tip: game progress is saved in your browser (localStorage). Use <em>Restart</em> inside any chapter to clear progress.</div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Created by Bharath — For Kalpana</div>
+    </footer>
+  </div>
 
 <script>
-const storyText = [
-  "Darkness breathes behind every reflection.",
-  "Kalpana stands before an ancient mirror, its surface alive with faint whispers.",
-  "A single heartbeat echoes — soft, steady, and familiar.",
-  "‘Who are you?’ she asks.",
-  "A whisper answers: ‘The one who remembers your heart…’",
-  "The mirror shivers. The game begins."
-];
+  // Keys used by chapter files
+  const PROGRESS_KEY = 'mirror-progress';      // e.g. 'chapter3'
+  const FOUND_KEY = 'mirror-found';            // optional clues like 'bharath'
+  const FINAL_KEY = 'mirror-final';            // final state touched/broken
 
-let i = 0, storyEl = document.getElementById("story");
-function typeStory() {
-  if (i < storyText.length) {
-    storyEl.innerHTML += `<p>${storyText[i]}</p>`;
-    i++;
-    setTimeout(typeStory, 1600);
-  } else {
-    document.getElementById("next").style.display = "inline-block";
-    localStorage.setItem("mirror-progress", "chapter1");
+  const newBtn = document.getElementById('newGame');
+  const resumeBtn = document.getElementById('resume');
+  const viewBtn = document.getElementById('viewChapters');
+  const progressLabel = document.getElementById('progressLabel');
+  const chapterLinks = document.getElementById('chapterLinks');
+
+  // Read saved progress (if any) and update UI
+  function loadProgress() {
+    const saved = localStorage.getItem(PROGRESS_KEY);
+    const found = localStorage.getItem(FOUND_KEY);
+    const final = localStorage.getItem(FINAL_KEY);
+
+    if(saved){
+      // saved may be like 'chapter3' or just a number; handle gracefully
+      progressLabel.innerText = saved;
+      resumeBtn.style.display = 'inline-block';
+    } else {
+      progressLabel.innerText = 'Not started';
+      resumeBtn.style.display = 'none';
+    }
+
+    // show a short summary if found clues exist
+    let extras = [];
+    if(found) extras.push('clue: ' + found);
+    if(final) extras.push('final: ' + final);
+    if(extras.length) progressLabel.innerText += ' — ' + extras.join(', ');
   }
-}
-function nextChapter() { window.location.href = "chapter1.html"; }
-window.onload = typeStory;
+
+  // Start new game -> clear saved state, then open chapter1
+  newBtn.addEventListener('click', ()=> {
+    if(!confirm('Start a new game? This will clear saved progress.')) return;
+    localStorage.removeItem(PROGRESS_KEY);
+    localStorage.removeItem(FOUND_KEY);
+    localStorage.removeItem(FINAL_KEY);
+    // small delay so user sees confirmation then navigate
+    setTimeout(()=> location.href = 'chapter1.html', 220);
+  });
+
+  // Resume -> go to saved chapter or chapter1 if missing
+  resumeBtn.addEventListener('click', ()=> {
+    const saved = localStorage.getItem(PROGRESS_KEY) || 'chapter1';
+    // saved might be 'chapter3' or 'chapter4.html' depending on how chapters saved it; normalize:
+    let target = 'chapter1.html';
+    if(typeof saved === 'string'){
+      const m = saved.match(/chapter\\s*([1-6])/i) || saved.match(/chapter([1-6])\\.html/i);
+      if(m && m[1]) target = `chapter${m[1]}.html`;
+      else if(saved.startsWith('chapter') && saved.indexOf('.html')>-1) target = saved;
+      else if(saved.startsWith('chapter') && saved.length>7) target = saved + '.html';
+      else target = 'chapter1.html';
+    }
+    location.href = target;
+  });
+
+  // Toggle chapter quick-links for testing
+  viewBtn.addEventListener('click', ()=> {
+    chapterLinks.style.display = chapterLinks.style.display === 'none' ? 'flex' : 'none';
+  });
+
+  // initialize
+  loadProgress();
+
+  // Show resume button automatically if progress exists
+  window.addEventListener('storage', loadProgress);
 </script>
 </body>
 </html>
