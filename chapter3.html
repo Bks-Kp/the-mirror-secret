@@ -1,140 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chapter 3 — The Chamber of Memory</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 3 — The Chamber of Memory</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/chapter3-bg.jpg');">
-<div class="overlay"></div>
+<body style="background: url('images/chapter3-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main">
+      <h1 class="h-title">Chapter 3 — The Chamber of Memory</h1>
 
-<div class="content">
-  <h1>Chapter 3: The Chamber of Memory</h1>
+      <div id="story" class="typewriter"></div>
 
-  <div id="narration" class="narration"></div>
+      <div class="input">
+        <input id="answer3" type="text" placeholder="Assemble the phrase..." />
+        <div><button class="btn" onclick="checkPrefixAnswer('answer3','I remember your smile','chapter4.html')">Submit</button></div>
+      </div>
 
-  <div id="puzzle" style="display:none;margin-top:18px">
-    <p><strong>Puzzle — Reassemble the phrase</strong></p>
-    <p style="color:var(--muted)">Three fragments float in the air. Click them in the correct order to form a phrase of comfort someone once said to Kalpana.</p>
-
-    <div id="fragments" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"></div>
-
-    <div style="margin-top:12px">
-      <button id="submit" class="btn primary">Submit</button>
-      <button id="reset" class="btn">Reset</button>
-      <div id="result" style="margin-top:12px;color:crimson;font-weight:700"></div>
+      <div class="small">Arrange the fragments to reform the memory.</div>
     </div>
   </div>
 
-  <div style="margin-top:20px">
-    <button onclick="restart()" class="btn">Restart</button>
-  </div>
-</div>
-
-<script>
-/*
- Chapter 3
- - narration (typewriter)
- - puzzle: 3 fragments that must be clicked in order to form phrase:
-   target phrase: "I remember your smile"
-   fragments: ["your smile","I remember","always"]
-   correct order (example): ["I remember","your smile","always"] -> but we will accept "I remember your smile" using first two
- - upon success, save progress and redirect to chapter4.html
-*/
-
-const NARR = [
-  "The chamber smells of old paper and damp thread.",
-  "Fragments of moments float like moths — a laugh, a stitch, a name.",
-  "You feel a gentle warmth — a memory someone once whispered to you."
-];
-
-const TARGET = "i remember your smile"; // canonical (lowercase)
-const FRAGMENTS = ["I remember","your smile","always"]; // displayed shuffled
-
-const narrationEl = document.getElementById('narration');
-const fragmentsEl = document.getElementById('fragments');
-const puzzleWrap = document.getElementById('puzzle');
-const resultEl = document.getElementById('result');
-
-let typed = 0;
-function typeWriter(textArr, idx=0, cb){
-  if(idx >= textArr.length){ if(cb) cb(); return; }
-  const str = textArr[idx];
-  let i = 0;
-  const targetEl = narrationEl;
-  function step(){
-    if(i <= str.length){
-      targetEl.innerHTML = (targetEl.innerHTML || "") + str[i] || '';
-      i++;
-      setTimeout(step, 22);
-    } else {
-      targetEl.innerHTML += "<br><br>";
-      setTimeout(()=> typeWriter(textArr, idx+1, cb), 420);
-    }
-  }
-  // reset for first call
-  if(idx === 0) targetEl.innerHTML = '';
-  step();
-}
-
-// render fragments shuffled
-function renderFragments(){
-  fragmentsEl.innerHTML = '';
-  const order = FRAGMENTS.slice().sort(()=>Math.random()-0.5);
-  order.forEach(f=>{
-    const b = document.createElement('button');
-    b.className = 'word';
-    b.innerText = f;
-    b.addEventListener('click', ()=> onFragClick(b,f));
-    fragmentsEl.appendChild(b);
-  });
-  // clear selection area
-  window.selectedFrags = [];
-}
-
-function onFragClick(btn, text){
-  // if already selected, ignore
-  if(btn.classList.contains('selected')) return;
-  btn.classList.add('selected');
-  if(!window.selectedFrags) window.selectedFrags = [];
-  window.selectedFrags.push(text);
-}
-
-document.getElementById('submit').addEventListener('click', ()=>{
-  const attempt = (window.selectedFrags || []).join(' ').toLowerCase().trim();
-  // accept both "i remember your smile" and "i remember your smile always" (prefix)
-  if(attempt.startsWith(TARGET)){
-    resultEl.innerText = "A warm light pools in the mirror. A path opens.";
-    // save progress
-    try{ localStorage.setItem('mirror-progress','chapter4'); }catch(e){}
-    setTimeout(()=> location.href = 'chapter4.html', 1600);
-  } else {
-    resultEl.innerText = "The fragments drift apart. Try a different order.";
-    // reset visual selections after short pause
-    setTimeout(()=> {
-      document.querySelectorAll('.word.selected').forEach(w=>w.classList.remove('selected'));
-      window.selectedFrags = [];
-      resultEl.innerText = '';
-    }, 900);
-  }
-});
-
-document.getElementById('reset').addEventListener('click', ()=> {
-  document.querySelectorAll('.word.selected').forEach(w=>w.classList.remove('selected'));
-  window.selectedFrags = [];
-  resultEl.innerText = '';
-});
-
-function restart(){ localStorage.clear(); window.location.href = 'index.html'; }
-
-window.onload = function(){
-  typeWriter(NARR, 0, ()=>{
-    // reveal puzzle after narration
-    puzzleWrap.style.display = 'block';
-    renderFragments();
-  });
-};
-</script>
+  <script src="script.js"></script>
+  <script>
+    const txt3 = `Fragments drift in the air — a laugh, a kerchief, an old promise.
+You reach out and feel the warmth of a single sentence.`;
+    typeWriter(txt3,'story',28, ()=> saveProgress('chapter3'));
+  </script>
 </body>
 </html>
