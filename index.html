@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mirror Secret</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="background-image: url('images/mirror-bg.jpg');">
+<div class="overlay"></div>
+
+<div class="content">
+  <h1>The Mirror Secret</h1>
+  <p id="story"></p>
+  <button id="next" style="display:none;" onclick="nextChapter()">Enter the Mirror</button>
+</div>
+
+<script>
+const storyText = [
+  "Darkness breathes behind every reflection.",
+  "Kalpana stands before an ancient mirror, its surface alive with faint whispers.",
+  "A single heartbeat echoes — soft, steady, and familiar.",
+  "‘Who are you?’ she asks.",
+  "A whisper answers: ‘The one who remembers your heart…’",
+  "The mirror shivers. The game begins."
+];
+
+let i = 0, storyEl = document.getElementById("story");
+function typeStory() {
+  if (i < storyText.length) {
+    storyEl.innerHTML += `<p>${storyText[i]}</p>`;
+    i++;
+    setTimeout(typeStory, 1600);
+  } else {
+    document.getElementById("next").style.display = "inline-block";
+    localStorage.setItem("mirror-progress", "chapter1");
+  }
+}
+function nextChapter() { window.location.href = "chapter1.html"; }
+window.onload = typeStory;
+</script>
+</body>
+</html>
