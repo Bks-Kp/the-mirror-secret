@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mirror’s Secret - Ending</title>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background: black url('images/bharath.png') center/contain no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #ff2222;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+  }
+
+  .message {
+    background: rgba(30, 30, 30, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    max-width: 600px;
+    animation: fadeIn 4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .title {
+    font-family: 'Creepster', cursive;
+    font-size: 3rem;
+    text-shadow: 0 0 15px #ff0000;
+  }
+
+  .restart {
+    margin-top: 25px;
+    padding: 10px 25px;
+    background: #111;
+    border: 1px solid #ff0000;
+    color: #ff3333;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .restart:hover {
+    background: #ff0000;
+    color: black;
+  }
+</style>
+</head>
+<body>
+  <div class="message">
+    <div class="title">THE MIRROR’S SECRET</div>
+    <p>As the final reflection fades, Bharath’s name glows within the mirror.<br>
+    Kalpana’s soul is free — her heart and truth finally reunited.<br><br>
+    Thank you for playing.</p>
+    <button class="restart" onclick="location.href='index.html'">Restart</button>
+  </div>
+</body>
+</html>
