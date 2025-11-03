@@ -1,66 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 2 – Echo of the Heart</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 2 — Echo of the Heart</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/chapter2-bg.jpg');">
-<div class="overlay"></div>
-<div class="content">
-  <h1>Chapter 2: Echo of the Heart</h1>
-  <p id="story"></p>
+<body style="background: url('images/chapter2-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main">
+      <h1 class="h-title">Chapter 2 — Echo of the Heart</h1>
 
-  <div id="puzzle" style="display:none;">
-    <p><b>Puzzle:</b> Kalpana finds a glowing shard that hums in rhythm.  
-    Three knocks, then silence.  
-    <br>Decode the sequence: ❤️ ❤️ ❤️ … ?  
-    (Enter the missing word)</p>
-    <input id="answer" placeholder="Your answer...">
-    <button onclick="check()">Submit</button>
-    <p id="result"></p>
+      <div id="story" class="typewriter"></div>
+
+      <div class="input">
+        <input id="answer2" type="text" placeholder="Type 'silence'..." />
+        <div><button class="btn" onclick="checkTextAnswer('answer2','silence',[], 'chapter3.html')">Submit</button></div>
+      </div>
+      <div class="small">Listen closely to the corridor’s rhythm.</div>
+    </div>
   </div>
 
-  <button id="restart" onclick="restartGame()">Restart</button>
-</div>
-
-<script>
-const story = [
-  "Beyond the mirror, a hallway stretches endlessly.",
-  "Each step she takes echoes like a heartbeat — familiar, human.",
-  "On the wall, the words shimmer: 'The heart remembers what the mind forgets.'",
-  "Somewhere, faintly, a voice whispers her name… ‘Kalpana…’"
-];
-
-let i = 0, storyEl = document.getElementById('story');
-function type() {
-  if (i < story.length) {
-    storyEl.innerHTML += `<p>${story[i]}</p>`;
-    i++;
-    setTimeout(type, 1700);
-  } else {
-    document.getElementById('puzzle').style.display = 'block';
-  }
-}
-
-function check() {
-  const ans = document.getElementById("answer").value.toLowerCase().trim();
-  if (ans === "silence") {
-    document.getElementById("result").innerText = "The hallway hums — the next door unlocks.";
-    localStorage.setItem("mirror-progress", "chapter3");
-    setTimeout(() => window.location.href = "chapter3.html", 2500);
-  } else {
-    document.getElementById("result").innerText = "The shard dims...";
-  }
-}
-
-function restartGame() {
-  localStorage.clear();
-  window.location.href = "index.html";
-}
-
-window.onload = type;
-</script>
+  <script src="script.js"></script>
+  <script>
+    const txt2 = `The corridor breathes like a slow heart.
+Shards of glass hum in a rhythm. A hush answers the echo.`;
+    typeWriter(txt2,'story',28, ()=> saveProgress('chapter2'));
+  </script>
 </body>
 </html>
