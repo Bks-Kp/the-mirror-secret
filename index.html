@@ -1,120 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Mirror’s Secret — Intro</title>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Creepster&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-black: #000;
-    --accent-red: #c72b2b;
-    --panel-gray: 20,20,20;
-    --panel-alpha: 0.15;
-  }
-
-  body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--bg-black);
-    color:var(--accent-red);
-    font-family:"Merriweather",serif;
-    overflow:hidden;
-  }
-
-  .panel{
-    background:rgba(var(--panel-gray),var(--panel-alpha));
-    border:1px solid rgba(255,0,0,0.08);
-    border-radius:12px;
-    padding:30px 40px;
-    max-width:800px;
-    text-align:center;
-    box-shadow:0 0 30px rgba(255,0,0,0.2);
-    backdrop-filter:blur(6px);
-  }
-
-  h1{
-    font-family:"Creepster",cursive;
-    font-size:36px;
-    margin:0 0 20px;
-    color:var(--accent-red);
-  }
-
-  #typewriter{
-    font-size:18px;
-    line-height:1.6;
-    min-height:120px;
-  }
-
-  .cursor{
-    display:inline-block;
-    width:10px;
-    height:1.2em;
-    background:var(--accent-red);
-    margin-left:4px;
-    animation:blink 1s steps(2,start) infinite;
-    vertical-align:middle;
-  }
-  @keyframes blink{50%{opacity:0}}
-
-  .controls{margin-top:20px;}
-  button{
-    background:var(--accent-red);
-    border:none;
-    color:#000;
-    padding:10px 16px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-    display:none;
-  }
-  button:hover{background:#ff4444;}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>The Mirror's Secret — Intro</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="panel">
-    <h1>The Mirror’s Secret</h1>
-    <div id="typewriter"></div>
-    <div class="controls">
-      <button id="continueBtn">Continue</button>
+<body style="background: url('images/mirror-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main" aria-label="Intro">
+      <h1 class="h-title">THE MIRROR'S SECRET</h1>
+      <div id="intro-text" class="typewriter"></div>
+
+      <div class="input">
+        <button id="startBtn" class="btn" style="display:none">Start Game</button>
+      </div>
+
+      <div class="small">Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
+        She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.</div>
     </div>
   </div>
 
-<script>
-const phrases = [
-  "You stand before the ancient mirror. Its surface ripples like water...",
-  "Whispers rise from the glass — voices you cannot name.",
-  "Your reflection tilts its head — but you haven’t moved."
-];
+  <script src="script.js"></script>
+  <script>
+    // intro text and flow: type then reveal start button
+    const introCopy = `Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
+She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.`;
 
-const typeEl = document.getElementById("typewriter");
-const btn = document.getElementById("continueBtn");
-let i = 0, j = 0, current = "", typing = true;
-
-function type(){
-  if(i < phrases.length){
-    current = phrases[i];
-    if(j < current.length){
-      typeEl.innerHTML = current.substring(0,j+1) + '<span class="cursor"></span>';
-      j++;
-      setTimeout(type,30);
-    } else {
-      j = 0; i++;
-      typeEl.innerHTML += "<br><br>";
-      setTimeout(type,600);
-    }
-  } else {
-    // done
-    typeEl.innerHTML = typeEl.innerHTML.replace(/<span class="cursor"><\/span>/g, "");
-    btn.style.display = "inline-block";
-  }
-}
-
-btn.addEventListener("click", ()=>{ window.location.href = "chapter1.html"; });
-type();
-</script>
+    typeWriter(introCopy, 'intro-text', 28, () => {
+      const btn = document.getElementById('startBtn');
+      btn.style.display = 'inline-block';
+      btn.addEventListener('click', ()=> {
+        // start new game: clear progress and go to chapter1
+        try{ localStorage.removeItem('mirror-progress'); localStorage.removeItem('mirror-final'); }catch(e){}
+        location.href = 'chapter1.html';
+      });
+    });
+  </script>
 </body>
 </html>
