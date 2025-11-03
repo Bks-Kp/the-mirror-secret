@@ -1,41 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>The Mirror's Secret — Intro</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mirror’s Secret</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #ff0000;
+      font-family: 'Merriweather', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .box {
+      background: rgba(50, 50, 50, 0.15);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 800px;
+      color: #ff4444;
+      font-size: 1.3rem;
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #title {
+      font-family: 'Creepster', cursive;
+      font-size: 3rem;
+      letter-spacing: 2px;
+      color: #ff2222;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .start-btn {
+      background: #111;
+      color: #ff2222;
+      border: 1px solid #ff0000;
+      padding: 10px 25px;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .start-btn:hover {
+      background: #ff0000;
+      color: black;
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid #ff0000;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 5s steps(60, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #ff0000; }
+    }
+  </style>
 </head>
-<body style="background: url('images/mirror-bg.jpg') center/cover fixed no-repeat;">
-  <div class="page-wrap">
-    <div class="panel" role="main" aria-label="Intro">
-      <h1 class="h-title">THE MIRROR'S SECRET</h1>
-      <div id="intro-text" class="typewriter"></div>
-
-      <div class="input">
-        <button id="startBtn" class="btn" style="display:none">Start Game</button>
-      </div>
-
-      <div class="small">Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
-        She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.</div>
+<body>
+  <div class="box">
+    <div id="title">THE MIRROR’S SECRET</div>
+    <div id="intro" class="typewriter">
+      Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
+      She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.
     </div>
+    <br>
+    <button class="start-btn" onclick="startGame()">Start Game</button>
   </div>
 
-  <script src="script.js"></script>
   <script>
-    // intro text and flow: type then reveal start button
-    const introCopy = `Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
-She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.`;
-
-    typeWriter(introCopy, 'intro-text', 28, () => {
-      const btn = document.getElementById('startBtn');
-      btn.style.display = 'inline-block';
-      btn.addEventListener('click', ()=> {
-        // start new game: clear progress and go to chapter1
-        try{ localStorage.removeItem('mirror-progress'); localStorage.removeItem('mirror-final'); }catch(e){}
-        location.href = 'chapter1.html';
-      });
-    });
+    function startGame() {
+      window.location.href = "chapter1.html";
+    }
   </script>
 </body>
 </html>
