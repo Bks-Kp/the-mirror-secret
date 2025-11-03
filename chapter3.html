@@ -14,7 +14,7 @@
 
       <div class="input">
         <input id="answer3" type="text" placeholder="Assemble the phrase..." />
-        <div><button class="btn" onclick="checkPrefixAnswer('answer3','I remember your smile','chapter4.html')">Submit</button></div>
+        <div><button class="btn" onclick="checkPrefixAnswer('answer3','smile','chapter4.html')">Submit</button></div>
       </div>
 
       <div class="small">Arrange the fragments to reform the memory.</div>
@@ -24,7 +24,8 @@
   <script src="script.js"></script>
   <script>
     const txt3 = `Fragments drift in the air — a laugh, a kerchief, an old promise.
-You reach out and feel the warmth of a single sentence.`;
+You reach out and feel the warmth of a single sentence.
+I remember your ...`;
     typeWriter(txt3,'story',28, ()=> saveProgress('chapter3'));
   </script>
 </body>
