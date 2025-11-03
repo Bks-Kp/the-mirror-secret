@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chapter 6 — The Final Reflection</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="background-image: url('images/chapter6-bg.jpg');">
+<div class="overlay"></div>
+
+<div class="content">
+  <h1>Chapter 6: The Final Reflection</h1>
+
+  <div id="narr" class="narration"></div>
+
+  <div id="choice" style="display:none;margin-top:18px">
+    <p><strong>Final Choice</strong></p>
+    <p style="color:var(--muted)">Touch the mirror and accept the truth — or break it and walk away. Choose carefully.</p>
+
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:12px">
+      <button id="touch" class="btn primary">Touch the Mirror</button>
+      <button id="break" class="btn">Break the Mirror</button>
+    </div>
+
+    <div id="res" style="margin-top:14px;color:crimson;font-weight:700"></div>
+  </div>
+
+  <div style="margin-top:20px">
+    <button onclick="restart()" class="btn">Restart</button>
+  </div>
+</div>
+
+<script>
+/*
+ Chapter 6:
+ - narration then final choice
+ - Touch -> reveal final message: "The Heart was Bharath"
+ - Break -> alternate bittersweet ending
+ - clear or mark progress
+*/
+
+const lines = [
+  "The mirror gathers every whisper into one clear voice.",
+  "Fragments align into a single name. The air tastes of river and thread.",
+  "Now you must choose how to meet the memory."
+];
+
+const narrEl = document.getElementById('narr');
+const choiceWrap = document.getElementById('choice');
+const resEl = document.getElementById('res');
+
+function typeWriter(lines, idx=0, cb){
+  if(idx >= lines.length){ if(cb) cb(); return; }
+  let i = 0, text = lines[idx];
+  function step(){
+    narrEl.innerHTML = (narrEl.innerHTML || '') + text[i] || '';
+    i++;
+    if(i <= text.length) setTimeout(step, 18); else {
+      narrEl.innerHTML += '<br><br>';
+      setTimeout(()=> typeWriter(lines, idx+1, cb), 420);
+    }
+  }
+  step();
+}
+
+document.getElementById('touch').addEventListener('click', ()=> {
+  resEl.innerText = "You touch the glass. The surface warms and a single word shines: Bharath.";
+  try{ localStorage.setItem('mirror-final','touched'); localStorage.setItem('mirror-revealed','bharath'); }catch(e){}
+  setTimeout(()=> {
+    narrEl.innerHTML += "<br><br><strong style='color:crimson'>\"The Heart was with you all along.\"</strong><br><br>— For Kalpana — from Bharath.";
+    resEl.innerText = "Game complete. Thank you for finding the truth.";
+  }, 900);
+});
+
+document.getElementById('break').addEventListener('click', ()=> {
+  resEl.innerText = "You strike the mirror. Glass scatters like sleeping stars. The whisper fades into a memory that no longer speaks.";
+  try{ localStorage.setItem('mirror-final','broken'); }catch(e){}
+  setTimeout(()=> {
+    narrEl.innerHTML += "<br><br><strong style='color:crimson'>You walk away with the memory — but not the answer.</strong>";
+    resEl.innerText = "Game complete. Restart to try another choice.";
+  }, 900);
+});
+
+function restart(){ localStorage.clear(); window.location.href = 'index.html'; }
+
+window.onload = function(){
+  typeWriter(lines, 0, ()=> { choiceWrap.style.display = 'block'; });
+};
+</script>
+</body>
+</html>
