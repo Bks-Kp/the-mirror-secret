@@ -1,109 +1,127 @@
-/* style.css - global theme for The Mirror's Secret */
-:root{
-  --accent-red: #c72b2b;
-  --muted: #b9b9b9;
-  --panel-gray: 20,20,20;
-  --panel-alpha: 0.65; /* 65% opacity */
-  --max-width: 920px;
-  --font-sans: "Merriweather", serif;
-  --title-font: "Creepster", cursive;
+/* ------------------ General Styles ------------------ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Merriweather', serif;
+  color: #fff;
+  background-color: #000;
+  height: 100vh;
+  overflow: hidden;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:#000;color:var(--accent-red);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-
-.page-wrap{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:28px;
+.page-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 20px;
 }
 
-.panel{
-  width:100%;
-  max-width:var(--max-width);
-  background: rgba(var(--panel-gray), var(--panel-alpha));
-  border-radius:14px;
-  padding:30px 32px;
-  text-align:center;
-  box-shadow: 0 18px 60px rgba(0,0,0,0.6);
-  border: 1px solid rgba(199,43,43,0.04);
-  backdrop-filter: blur(6px);
+/* ------------------ Title ------------------ */
+.h-title {
+  font-family: 'Creepster', cursive;
+  color: #ff0000;
+  font-size: 2.6em;
+  text-shadow: 0 0 18px #ff0000;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
 }
 
-/* Title */
-.h-title{
-  font-family: var(--title-font);
-  color:var(--accent-red);
-  font-size: clamp(22px, 4.2vw, 38px);
-  margin:0 0 12px;
-  letter-spacing:1px;
+/* ------------------ Story Text ------------------ */
+#story {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  color: #ffffff;
+  text-align: center;
+  white-space: pre-line;
+  margin: 20px auto;
+  width: 85%;
+  max-width: 900px;
+  background: rgba(50, 50, 50, 0.15);
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
-/* typewriter area */
-.typewriter{
-  color:var(--muted);
-  font-size: clamp(15px, 2.2vw, 18px);
-  line-height:1.7;
-  text-align:center;
-  min-height: 140px;
-  margin: 8px 0 4px;
+/* ------------------ Buttons ------------------ */
+button, .choice {
+  font-family: 'Merriweather', serif;
+  background: transparent;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  padding: 8px 16px;
+  margin: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover, .choice:hover {
+  background: #ff0000;
+  color: #000;
+  box-shadow: 0 0 12px #ff0000;
+}
+
+/* ------------------ Input ------------------ */
+input[type="text"] {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #ff0000;
+  color: #fff;
+  padding: 8px 14px;
+  margin-top: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1em;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #ff5555;
+  box-shadow: 0 0 10px #ff0000;
+}
+
+/* ------------------ Choice Buttons ------------------ */
+.choice-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* ------------------ Small Text ------------------ */
+.small {
+  font-size: 0.9em;
+  opacity: 0.8;
+  color: #ddd;
+  margin-top: 15px;
+}
+
+/* ------------------ Typewriter Animation ------------------ */
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid #ff0000;
   white-space: pre-wrap;
+  margin: 0 auto;
+  animation: blink 0.7s infinite;
 }
 
-/* blinking caret (visual, not necessary) */
-.caret{
-  display:inline-block;
-  width:10px; height:1.05em;
-  background:var(--accent-red);
-  margin-left:8px;
-  vertical-align:middle;
-  animation:blink 1s steps(2,start) infinite;
-}
-@keyframes blink{50%{opacity:0}}
-
-/* input and buttons */
-.input{
-  margin-top:14px;
-}
-.input input[type="text"]{
-  width:70%;
-  max-width:480px;
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid rgba(199,43,43,0.12);
-  background:rgba(12,12,12,0.9);
-  color:var(--accent-red);
-  text-align:center;
-  font-size:15px;
-}
-.btn{
-  margin-top:12px;
-  padding:10px 14px;
-  border-radius:8px;
-  border:none;
-  background:var(--accent-red);
-  color:#000;
-  cursor:pointer;
-  font-weight:700;
-}
-.btn.ghost{
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.06);
-  color:var(--muted);
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
 
-/* choices / symbol buttons */
-.choice-row{display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-.choice{padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(0,0,0,0.35);color:var(--muted);cursor:pointer}
-
-/* small text */
-.small{font-size:13px;color:rgba(255,255,255,0.12);margin-top:10px}
-
-/* responsive */
-@media (max-width:640px){
-  .panel{padding:20px}
-  .typewriter{min-height:120px}
-  .input input[type="text"]{width:90%}
+/* ------------------ Panel ------------------ */
+.panel {
+  background: rgba(20, 20, 20, 0.7);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+  max-width: 900px;
+  width: 90%;
+  text-align: center;
+  margin: auto;
 }
