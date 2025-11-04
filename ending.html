@@ -3,63 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Mirror’s Secret - Ending</title>
-<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+<title>The Mirror’s Secret — Ending</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Crimson+Text&display=swap" rel="stylesheet">
 <style>
-  body {
-    background: black url('images/bharath.png') center/contain no-repeat;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: #ff2222;
-    text-align: center;
-    font-family: 'Merriweather', serif;
-  }
-
-  .message {
-    background: rgba(30, 30, 30, 0.15);
-    padding: 30px;
-    border-radius: 20px;
-    font-size: 1.5rem;
-    max-width: 600px;
-    animation: fadeIn 4s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .title {
-    font-family: 'Creepster', cursive;
-    font-size: 3rem;
-    text-shadow: 0 0 15px #ff0000;
-  }
-
-  .restart {
-    margin-top: 25px;
-    padding: 10px 25px;
-    background: #111;
-    border: 1px solid #ff0000;
-    color: #ff3333;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  .restart:hover {
-    background: #ff0000;
-    color: black;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: url('bharath.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Crimson Text', serif;
+  color: #ff2e2e;
+  text-align: center;
+}
+#storybox {
+  background: rgba(40, 40, 40, 0.15);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 80%;
+  line-height: 1.8;
+  font-size: 1.3rem;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+#bharath {
+  display: none;
+  margin-top: 30px;
+  width: 250px;
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+  animation: fadeIn 3s forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+#buttons {
+  margin-top: 40px;
+}
+button {
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff2e2e;
+  color: #ff2e2e;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: #ff2e2e;
+  color: black;
+}
 </style>
 </head>
 <body>
-  <div class="message">
-    <div class="title">THE MIRROR’S SECRET</div>
-    <p>As the final reflection fades, Bharath’s name glows within the mirror.<br>
-    Kalpana’s soul is free — her heart and truth finally reunited.<br><br>
-    Thank you for playing.</p>
-    <button class="restart" onclick="location.href='index.html'">Restart</button>
-  </div>
+<div id="storybox"></div>
+<img id="bharath" src="Bharath.png" alt="Bharath">
+<div id="buttons" style="display:none;">
+  <button onclick="window.location.href='index.html'">Play Again</button>
+</div>
+<script>
+const endingText = `
+The glass ripples... and silence fills the mansion.
+
+Kalpana opens her eyes — not to reflection, but reality.
+
+The mirrors around her stand whole again, glowing faintly with crimson light.
+Every lie, every fear... gone. Only truth remains.
+
+She smiles, touching the mirror one last time.
+
+And through its calm surface, a figure appears — Bharath — 
+his eyes gentle, his heart steady, his voice whispering softly through the light:
+
+“Welcome back.”
+
+The mansion fades into dawn.
+`;
+
+let i = 0;
+function typeEffect() {
+  if (i < endingText.length) {
+    document.getElementById("storybox").innerHTML = endingText.substring(0, i+1).replace(/\n/g, "<br>");
+    i++;
+    setTimeout(typeEffect, 45);
+  } else {
+    setTimeout(() => {
+      document.getElementById("bharath").style.display = "block";
+    }, 2000);
+    setTimeout(() => {
+      document.getElementById("buttons").style.display = "block";
+    }, 5000);
+  }
+}
+typeEffect();
+</script>
 </body>
 </html>
