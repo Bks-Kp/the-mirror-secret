@@ -1,85 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 6 — The Final Reflection</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Crimson+Text&display=swap" rel="stylesheet">
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: url('chapter6-bg.jpg') no-repeat center center/cover;
-  color: #ff2e2e;
-  font-family: 'Crimson Text', serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#textbox {
-  background: rgba(40, 40, 40, 0.15);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  max-width: 80%;
-  font-size: 1.3rem;
-  line-height: 1.8;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-}
-#bharathImage {
-  display: none;
-  margin-top: 30px;
-  width: 250px;
-  border-radius: 50%;
-  box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
-  animation: fadeIn 3s forwards;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-</style>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chapter 6 — The Final Reflection</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div id="textbox"></div>
-<img id="bharathImage" src="Bharath.png" alt="Bharath">
-<script>
-const text = `
-The mirror trembled — not with fear, but release.
+<body style="background: url('images/chapter6-bg.jpg') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel" role="main">
+      <h1 class="h-title">Chapter 6 — The Final Reflection</h1>
 
-Kalpana’s reflection no longer mocked her. 
-It smiled... warm, alive, complete.
+      <div id="story" class="typewriter"></div>
 
-Each shard that once whispered her doubts now shimmered with the light of truth — 
-the heart that had guided her all along.
+      <div class="choice-row">
+        <button class="choice" onclick="(function(){ saveProgress('chapter6'); finalize('touched'); })()">Touch the Mirror</button>
+        <button class="choice" onclick="(function(){ saveProgress('chapter6'); finalize('broken'); })()">Break the Mirror</button>
+      </div>
 
-As she reached out, the glass no longer broke. 
-It rippled — soft as water — and her reflection reached back.
+      <div id="final-msg" class="small" style="margin-top:14px"></div>
+    </div>
+  </div>
 
-In that final moment, two worlds touched.
-
-The whispers faded.
-
-And only one voice remained...
-
-“I never left, Kalpana,” it said — tender, eternal.
-
-The mirror glowed crimson, and from its light... Bharath appeared.
-`;
-
-let i = 0;
-function typeEffect() {
-  if (i < text.length) {
-    document.getElementById("textbox").innerHTML = text.substring(0, i+1).replace(/\n/g, "<br>");
-    i++;
-    setTimeout(typeEffect, 45);
-  } else {
-    setTimeout(() => {
-      document.getElementById("bharathImage").style.display = "block";
-    }, 2000);
-  }
-}
-typeEffect();
-</script>
+  <script src="script.js"></script>
+  <script>
+    const txt6 = `The glass gathers every whisper into one voice.
+A stitched name hovers at the center. What will you do?`;
+    typeWriter(txt6,'story',28, ()=> saveProgress('chapter6'));
+  </script>
 </body>
 </html>
