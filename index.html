@@ -1,95 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>The Mirror’s Secret</title>
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Crimson+Text&display=swap" rel="stylesheet">
   <style>
     body {
+      background: url('images/intro.png') center/cover fixed no-repeat;
       margin: 0;
-      padding: 0;
-      background: black;
-      color: #ff0000;
-      font-family: 'Merriweather', serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       height: 100vh;
-      overflow: hidden;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ff2e2e;
+      font-family: 'Crimson Text', serif;
     }
-
-    .box {
+    .container {
       background: rgba(50, 50, 50, 0.15);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 800px;
-      color: #ff4444;
-      font-size: 1.3rem;
-      animation: fadeIn 2s ease;
+      border-radius: 25px;
+      padding: 40px 60px;
+      text-align: center;
+      max-width: 700px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+      margin-bottom: 20px;
     }
-
-    #title {
-      font-family: 'Creepster', cursive;
-      font-size: 3rem;
-      letter-spacing: 2px;
-      color: #ff2222;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #ff0000;
+    #intro-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      min-height: 100px;
+      white-space: pre-line;
     }
-
     .start-btn {
-      background: #111;
-      color: #ff2222;
-      border: 1px solid #ff0000;
-      padding: 10px 25px;
-      margin-top: 20px;
+      margin-top: 30px;
+      padding: 12px 30px;
+      border: 1px solid #ff2e2e;
       border-radius: 8px;
+      background: rgba(255, 0, 0, 0.1);
+      color: #ff2e2e;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
     }
     .start-btn:hover {
-      background: #ff0000;
+      background: #ff2e2e;
       color: black;
-    }
-
-    .typewriter {
-      display: inline-block;
-      border-right: 2px solid #ff0000;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 5s steps(60, end), blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: #ff0000; }
+      box-shadow: 0 0 15px #ff2e2e;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div id="title">THE MIRROR’S SECRET</div>
-    <div id="intro" class="typewriter">
-      Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality. \n
-      She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.
-    </div>
-    <br>
+  <div class="container">
+    <h1>THE MIRROR’S SECRET</h1>
+    <div id="intro-text" class="typewriter"></div>
     <button class="start-btn" onclick="startGame()">Start Game</button>
   </div>
 
   <script>
+    const intro = `Kalpana is trapped inside an abandoned mansion where every mirror reflects an alternate reality.
+She needs to decide which reflections tell the truth — each wrong choice traps a piece of her soul.`;
+
+    let i = 0;
+    function typeWriter(text, id, speed) {
+      const el = document.getElementById(id);
+      if (i < text.length) {
+        el.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(() => typeWriter(text, id, speed), speed);
+      }
+    }
+
+    typeWriter(intro, 'intro-text', 30);
+
     function startGame() {
       window.location.href = "chapter1.html";
     }
