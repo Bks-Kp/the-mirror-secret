@@ -39,7 +39,7 @@ body {
   margin: 20px auto;
   width: 85%;
   max-width: 900px;
-  background: rgba(50, 50, 50, 0.15);
+  background: rgba(50, 50, 50, 0.25); /* ⬅ Increased from 0.15 to 0.25 */
   border-radius: 12px;
   padding: 20px 30px;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
