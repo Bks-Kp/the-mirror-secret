@@ -1,19 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Chapter 2 — Echo of the Heart</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body style="background: url('images/chapter2-bg.jpg') center/cover fixed no-repeat;">
   <div class="page-wrap">
-    <div class="panel" role="main">
+    <div class="panel">
       <h1 class="h-title">Chapter 2 — Echo of the Heart</h1>
-
       <div id="story" class="typewriter"></div>
 
       <div class="input">
-        <input id="answer2" type="text" placeholder="Hint: If you say my name, I disappear. What am I? ..." />
+        <input id="answer2" type="text" placeholder="Hint: If you say my name, I disappear..." />
         <div><button class="btn" onclick="checkTextAnswer('answer2','silence',[], 'chapter3.html')">Submit</button></div>
       </div>
       <div class="small">Listen closely to the corridor’s rhythm.</div>
@@ -30,7 +29,7 @@ It’s as if the mansion itself is holding its breath — waiting for her to und
 Only silence speaks here. Only silence reveals truth.
 
 Kalpana closes her eyes. To move forward, she must embrace the quiet and maintain ...`;
-    typeWriter(txt2,'story',28, ()=> saveProgress('chapter2'));
+    typeWriter(txt2, "story", 28, () => saveProgress("chapter2"));
   </script>
 </body>
 </html>
