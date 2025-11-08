@@ -1,5 +1,5 @@
 /* ==============================
-   THE MIRROR’S SECRET — FINAL STYLE
+   THE MIRROR’S SECRET 
    ============================== */
 
 /* ====== Global ====== */
@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ====== Wrapper ====== */
+/* ====== Layout ====== */
 .page-wrap {
   display: flex;
   justify-content: center;
@@ -25,9 +25,8 @@ body {
   height: 100vh;
 }
 
-/* ====== Game Panel ====== */
 .panel {
-  background: rgba(0, 0, 0, 0.25); /* 25% transparency */
+  background: rgba(0, 0, 0, 0.25); /* 25% transparency for readability */
   border: 1px solid rgba(255, 0, 0, 0.2);
   border-radius: 16px;
   padding: 40px 30px;
@@ -48,7 +47,7 @@ body {
   animation: glowPulse 2.5s infinite ease-in-out;
 }
 
-/* ====== Story ====== */
+/* ====== Story Text ====== */
 #story {
   font-size: 1.15rem;
   line-height: 1.7rem;
@@ -60,13 +59,12 @@ body {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-/* ====== Input Area ====== */
-.hint-container {
+/* ====== Input & Button ====== */
+.input {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
   margin-top: 10px;
 }
 
@@ -95,8 +93,8 @@ input[type="text"]::placeholder {
   text-align: center;
 }
 
-/* ====== Buttons ====== */
-button, .choice {
+/* ====== Submit Button ====== */
+.btn {
   background: transparent;
   color: crimson;
   border: 2px solid crimson;
@@ -108,31 +106,20 @@ button, .choice {
   font-family: Cambria, serif;
 }
 
-button:hover, .choice:hover {
+.btn:hover {
   background: crimson;
   color: black;
   transform: scale(1.05);
 }
 
-/* ====== Messages ====== */
+/* ====== Tip / Small Text ====== */
 .small {
   font-size: 0.9rem;
   color: #bbb;
   margin-top: 10px;
 }
 
-/* ====== Animations ====== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { text-shadow: 0 0 14px rgba(255, 0, 0, 0.6); }
-  50% { text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
-}
-
-/* ====== Typewriter Cursor ====== */
+/* ====== Typewriter Effect ====== */
 .typewriter {
   overflow: hidden;
   border-right: 0.12em solid crimson;
@@ -147,7 +134,18 @@ button:hover, .choice:hover {
   }
 }
 
-/* ====== Responsive ====== */
+/* ====== Animations ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 14px rgba(255, 0, 0, 0.6); }
+  50% { text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+}
+
+/* ====== Responsive Design ====== */
 @media (max-width: 768px) {
   .panel {
     width: 92%;
@@ -168,8 +166,33 @@ button:hover, .choice:hover {
     padding: 8px 10px;
   }
 
-  button {
+  .btn {
     font-size: 0.9rem;
     padding: 7px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .h-title {
+    font-size: 1.2rem;
+  }
+
+  #story {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .small {
+    font-size: 0.75rem;
   }
 }
