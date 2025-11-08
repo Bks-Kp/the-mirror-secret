@@ -1,80 +1,73 @@
-/* ====== Global Body Settings ====== */
+/* ====== Global Styles ====== */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Merriweather', serif;
-  background-color: black;
-  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: #000;
+  color: #fff;
   text-align: center;
-  min-height: 100vh;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: 100vh;
 }
 
-/* ====== Page Wrapper ====== */
+/* ====== Page Layout ====== */
 .page-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  backdrop-filter: brightness(1.15); /* brighten the bg slightly */
 }
 
 /* ====== Story Panel ====== */
 .panel {
+  background: transparent;
+  border: 2px solid rgba(255, 0, 0, 0.15);
   border-radius: 16px;
   padding: 30px;
   max-width: 800px;
   width: 90%;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
   text-align: center;
+  margin: auto;
 }
 
-/* ====== Titles ====== */
+/* ====== Title ====== */
 .h-title {
-  color: crimson;
-  font-family: 'Creepster', cursive;
+  color: #ff1a1a;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
   font-size: 2rem;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
 }
 
-/* ====== Typewriter Story Text ====== */
-.typewriter {
-  font-size: 1.1rem;
+/* ====== Story Text ====== */
+#story {
+  font-size: 1.15rem;
+  line-height: 1.7rem;
   color: #ffffff;
-  line-height: 1.6;
   white-space: pre-line;
   text-align: center;
-  min-height: 150px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: rgba(20, 20, 20, 0.25);
-  border: 1px solid rgba(255, 0, 0, 0.15);
-  margin-bottom: 25px;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.15);
+  margin: 20px auto 25px auto;
+  max-width: 90%;
 }
 
 /* ====== Buttons ====== */
-button,
-.choice {
+button, .choice {
   background: transparent;
   color: crimson;
   border: 2px solid crimson;
   border-radius: 10px;
-  padding: 10px 20px;
+  padding: 10px 25px;
   font-size: 1rem;
   cursor: pointer;
-  margin: 10px;
   transition: 0.3s ease;
+  margin-top: 10px;
 }
 
-button:hover,
-.choice:hover {
+button:hover, .choice:hover {
   background: crimson;
   color: black;
   transform: scale(1.05);
@@ -85,24 +78,50 @@ button:hover,
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
-/* ====== Small Text ====== */
+/* ====== Hint Box ====== */
+input[type="text"] {
+  background: transparent;
+  color: #fff;
+  border: 1px solid crimson;
+  border-radius: 8px;
+  text-align: center;
+  padding: 8px 12px;
+  margin-top: 10px;
+  width: auto; /* auto width */
+  display: inline-block;
+  font-family: Cambria, serif;
+  transition: 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #ff6666;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+  outline: none;
+}
+
+/* ====== Hint + Tips ====== */
 .small {
   font-size: 0.9rem;
   color: #bbb;
+  margin-top: 10px;
 }
 
-/* ====== Fade-in Animation ====== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.panel,
-.h-title,
+/* ====== Typewriter Animation ====== */
 .typewriter {
-  animation: fadeIn 1.5s ease forwards;
+  overflow: hidden;
+  border-right: 0.12em solid crimson;
+  white-space: pre-wrap;
+  margin: 0 auto;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
 
 /* ====== Mobile Optimization ====== */
@@ -110,9 +129,8 @@ button:hover,
   .h-title {
     font-size: 1.6rem;
   }
-  .typewriter {
+  #story {
     font-size: 1rem;
-    padding: 15px;
   }
   .panel {
     width: 95%;
