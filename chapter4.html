@@ -13,8 +13,8 @@
       <div id="story" class="typewriter"></div>
 
       <div class="choice-row">
-        <button class="choice" onclick="(function(){ saveProgress('chapter4'); location.href='chapter5.html'; })()">Light Reflection</button>
-        <button class="choice" onclick="flash('Hint: The shadow recoils — not the truth')">Shadow Reflection</button>
+        <button class="choice" onclick="handleChoice('light')">Light Reflection</button>
+        <button class="choice" onclick="handleChoice('shadow')">Shadow Reflection</button>
       </div>
 
       <div class="small">Choose the mirror that speaks true.</div>
@@ -31,7 +31,7 @@ The light says, “The truth sets you free, but only if you face it.”
 
 Her pulse races. One choice will shatter illusion, the other will imprison her forever.
 The mirrors await her decision — to reach for light... or fall into shadow.`;
-    typeWriter(txt4,'story',28, ()=> {});
+    typeWriter(txt4,'story',28, ()=> saveProgress('chapter4'));
   </script>
 </body>
 </html>
