@@ -13,11 +13,11 @@
       <div id="story" class="typewriter"></div>
 
       <div class="input">
-        <input id="answer3" type="text" placeholder="Hint: I always fall for your ..." />
-        <div><button class="btn" onclick="checkPrefixAnswer('answer3','smile','chapter4.html')">Submit</button></div>
+        <input id="answer3" type="text" placeholder="Hint: The word that brightens every memory..." />
+        <div><button class="btn" onclick="checkTextAnswer('answer3','smile',[], 'chapter4.html')">Submit</button></div>
       </div>
 
-      <div class="small">Arrange the fragments to reform the memory.</div>
+      <div class="small">Tip: answers are case-insensitive.</div>
     </div>
   </div>
 
@@ -27,9 +27,9 @@
 A festival... laughter... a man offering her a rose. His name lingers on her lips, but the image blurs before she can speak it.
 
 Words appear etched into the mirror’s surface:
-"I remember your…"
+"I remember your..."
 
-The sentence feels incomplete — like a key waiting to turn the lock of memory.
+The sentence feels incomplete — a key waiting to unlock the memory.
 Kalpana touches the mirror, piecing together the fragments in her mind.
 And then, she remembers — his ...`;
     typeWriter(txt3,'story',28, ()=> saveProgress('chapter3'));
