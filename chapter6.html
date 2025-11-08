@@ -6,6 +6,7 @@
   <title>Chapter 6 — The Final Reflection</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body style="background: url('images/chapter6-bg.jpg') center/cover fixed no-repeat;">
   <div class="page-wrap">
     <div class="panel" role="main">
@@ -22,7 +23,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
   <script>
     // ✨ Final Chapter Storyline
     const txt6 = `
@@ -31,7 +31,7 @@ The mansion falls silent.
 Every mirror flickers with fragments of the choices she’s made.
 Heart. Silence. Memory. Light. Bharath.
 
-Each reflection merges into one — her true self, standing at the final mirror.
+Each reflection merges into one — her true self, standing before the final mirror.
 Through the shimmering surface, she sees him: Bharath.
 He smiles softly, waiting — not as a ghost, but as a promise.
 
@@ -42,10 +42,11 @@ Kalpana takes a breath.
 Her heart whispers: what will you choose?
 `;
 
-    // ⌛ Typewriter animation
+    // 🕯️ Typewriter animation
     function typeWriter(text, id, speed, callback) {
       let i = 0;
       const el = document.getElementById(id);
+      el.innerHTML = "";
       function typing() {
         if (i < text.length) {
           el.innerHTML += text.charAt(i);
@@ -56,26 +57,33 @@ Her heart whispers: what will you choose?
       typing();
     }
 
-    typeWriter(txt6, 'story', 28, () => saveProgress('chapter6'));
-
-    // 💡 Save progress (placeholder)
+    // 🩸 Save progress
     function saveProgress(chapter) {
-      localStorage.setItem("lastChapter", chapter);
+      localStorage.setItem("mirror_progress", chapter);
     }
 
-    // 🔀 Branch to correct ending
+    // 💔 Final choice — direct endings
     function finalize(choice) {
       const msg = document.getElementById("final-msg");
 
-      if (choice === 'touched') {
-        msg.innerHTML = "The mirror glows softly... her reflection smiles back. The curse breaks.";
-        setTimeout(() => window.location.href = "ending.html", 3500);
+      if (choice === "touched") {
+        msg.innerHTML = "💖 The mirror glows softly... her reflection smiles back. The curse breaks.";
+        msg.style.color = "crimson";
+        document.body.style.transition = "opacity 1.2s ease";
+        document.body.style.opacity = "0";
+        setTimeout(() => window.location.href = "ending.html", 2800);
       } 
-      else if (choice === 'broken') {
-        msg.innerHTML = "Glass shatters like a scream — silence swallows the light.";
-        setTimeout(() => window.location.href = "ending2.html", 3500);
+      else if (choice === "broken") {
+        msg.innerHTML = "💔 Glass shatters like a scream — silence swallows the light.";
+        msg.style.color = "#bbb";
+        document.body.style.transition = "opacity 1.2s ease";
+        document.body.style.opacity = "0";
+        setTimeout(() => window.location.href = "ending2.html", 2800);
       }
     }
+
+    // Start story
+    typeWriter(txt6, "story", 28, () => saveProgress("chapter6"));
   </script>
 </body>
 </html>
