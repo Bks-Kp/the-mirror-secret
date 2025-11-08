@@ -1,133 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>The Mirror’s Secret — Broken Reflection</title>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>The Mirror’s Secret — Broken Ending</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: url('images/ending.png') center/cover fixed no-repeat;
-      color: white;
-      text-align: center;
-      overflow: hidden;
-      margin: 0;
-    }
-
-    .ending-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.25);
-      animation: fadeIn 3s ease forwards;
-    }
-
-    /* --- Shattered Bharath Image --- */
-    .shattered {
-      position: relative;
-      width: 300px;
-      height: auto;
-      filter: drop-shadow(0 0 6px crimson);
-      animation: shake 1.2s ease forwards;
-    }
-
-    .shattered::before,
-    .shattered::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('images/bharath.png') center/cover no-repeat;
-      clip-path: polygon(0 0, 50% 10%, 30% 100%, 0% 100%);
-      opacity: 0.9;
-      animation: shardLeft 2.5s ease forwards;
-    }
-
-    .shattered::after {
-      clip-path: polygon(50% 0, 100% 10%, 100% 100%, 60% 100%);
-      animation: shardRight 2.5s ease forwards;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: none; }
-      25% { transform: rotate(1deg) translateX(2px); }
-      50% { transform: rotate(-1deg) translateX(-2px); }
-      75% { transform: rotate(0.5deg) translateY(1px); }
-    }
-
-    @keyframes shardLeft {
-      0% { transform: none; opacity: 1; }
-      100% { transform: translateX(-25px) rotate(-3deg); opacity: 0.8; }
-    }
-
-    @keyframes shardRight {
-      0% { transform: none; opacity: 1; }
-      100% { transform: translateX(25px) rotate(3deg); opacity: 0.8; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .typewriter {
-      font-family: Cambria, serif;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      max-width: 700px;
-      margin-top: 30px;
-      padding: 20px;
-      color: #fff;
-      background-color: rgba(30, 30, 30, 0.25);
-      border-radius: 15px;
-      opacity: 0;
-      animation: fadeText 2s ease forwards 3s;
-      text-align: center;
-    }
-
-    @keyframes fadeText {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .end-button {
-      margin-top: 40px;
-      background: transparent;
-      border: 2px solid crimson;
-      color: crimson;
-      font-size: 1rem;
-      padding: 10px 25px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      display: none;
-    }
-
-    .end-button:hover {
-      background: crimson;
-      color: black;
-      transform: scale(1.05);
-    }
-
-    .fade-in {
-      display: inline-block;
-      animation: showBtn 1.2s ease forwards;
-    }
-
-    @keyframes showBtn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
-<body>
-  <div class="ending-container">
-    <img src="images/bharath2.png" alt="Broken Reflection" class="shattered" />
-    <div id="ending-text" class="typewriter"></div>
-    <button id="playAgain" class="end-button" onclick="restartGame()">Play Again</button>
+<body style="background: url('images/ending2.png') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel">
+      <h1 class="h-title">Epilogue — Shattered Reflections</h1>
+      <div id="story" class="typewriter"></div>
+      <img src="images/bharath2.png" alt="Broken Mirror" class="end-img shattered" />
+      <button id="restart" class="btn" style="display:none" onclick="window.location.href='index.html'">Play Again</button>
+    </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
     const endingStory = `
 The mirror explodes in a scream of crimson light.
@@ -143,33 +31,10 @@ He reaches out — but there is nothing left to touch.
 As the last light fades, only one whisper lingers in the dark:
 "Some mirrors aren’t meant to be broken."
 `;
-
-    function typeWriter(text, id, speed = 28, onComplete) {
-      let i = 0;
-      const el = document.getElementById(id);
-      function typing() {
-        if (i < text.length) {
-          el.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(typing, speed);
-        } else {
-          if (onComplete) onComplete();
-        }
-      }
-      typing();
-    }
-
-    function restartGame() {
-      window.location.href = "index.html";
-    }
-
-    window.onload = () => {
-      typeWriter(endingStory, "ending-text", 28, () => {
-        const btn = document.getElementById("playAgain");
-        btn.style.display = "inline-block";
-        btn.classList.add("fade-in");
-      });
-    };
+    typeWriter(endText2,'story',28, ()=>{
+      const restart=document.getElementById('restart');
+      setTimeout(()=>restart.style.display='inline-block',1000);
+    });
   </script>
 </body>
 </html>
