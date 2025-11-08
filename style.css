@@ -1,12 +1,106 @@
-/* ====== Hint Input Auto Expand + Center ====== */
+/* ==============================
+   THE MIRROR’S SECRET — STYLE
+   ============================== */
+
+/* ====== Global ====== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ====== Main Wrapper ====== */
+.page-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* ====== Game Panel ====== */
+.panel {
+  background: transparent;
+  border: 2px solid rgba(255, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 25px 30px;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+  text-align: center;
+  margin: auto;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* ====== Title ====== */
+.h-title {
+  color: #ff1a1a;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* ====== Story Text ====== */
+#story {
+  font-size: 1.15rem;
+  line-height: 1.7rem;
+  color: #ffffff;
+  white-space: pre-line;
+  text-align: center;
+  margin: 20px auto 25px auto;
+  max-width: 90%;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* ====== Buttons ====== */
+button, .choice {
+  background: transparent;
+  color: crimson;
+  border: 2px solid crimson;
+  border-radius: 10px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 10px;
+  font-family: Cambria, serif;
+}
+
+button:hover, .choice:hover {
+  background: crimson;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ====== Choice Row ====== */
+.choice-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* ====== Hint Container ====== */
 .hint-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
 }
 
+/* ====== Hint Input ====== */
 input[type="text"] {
   background: transparent;
   color: #fff;
@@ -26,4 +120,111 @@ input[type="text"]:focus {
   border-color: #ff6666;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
   outline: none;
+}
+
+input[type="text"]::placeholder {
+  color: #ccc;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* ====== Small Text ====== */
+.small {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-top: 10px;
+}
+
+/* ====== Typewriter Cursor ====== */
+.typewriter {
+  overflow: hidden;
+  border-right: 0.12em solid crimson;
+  white-space: pre-wrap;
+  margin: 0 auto;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* ====== Fade Animations ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Responsive (Tablet) ====== */
+@media (max-width: 1024px) {
+  .h-title {
+    font-size: 1.8rem;
+  }
+  #story {
+    font-size: 1.05rem;
+    line-height: 1.5rem;
+  }
+  button, .choice {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+  }
+}
+
+/* ====== Responsive (Phone) ====== */
+@media (max-width: 768px) {
+  .panel {
+    width: 92%;
+    padding: 20px;
+  }
+
+  .h-title {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+
+  #story {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+  }
+
+  button, .choice {
+    font-size: 0.85rem;
+    padding: 7px 15px;
+  }
+
+  input[type="text"] {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .small {
+    font-size: 0.8rem;
+  }
+}
+
+/* ====== Responsive (Extra Small) ====== */
+@media (max-width: 480px) {
+  .h-title {
+    font-size: 1.2rem;
+  }
+
+  #story {
+    font-size: 0.85rem;
+    line-height: 1.3rem;
+  }
+
+  button, .choice {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  input[type="text"] {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+
+  .small {
+    font-size: 0.75rem;
+  }
 }
