@@ -1,24 +1,49 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>The Mirror’s Secret — Ending</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .ending-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+    .ending-text {
+      max-width: 420px;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+    .end-img {
+      width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255,0,0,0.4);
+    }
+  </style>
 </head>
 <body style="background: url('images/ending.png') center/cover fixed no-repeat;">
   <div class="page-wrap">
     <div class="panel">
       <h1 class="h-title">Epilogue — The Reflection Reborn</h1>
       <div id="story" class="typewriter"></div>
-      <img src="images/bharath.png" alt="Bharath" class="end-img" />
-      <button id="restart" class="btn" style="display:none" onclick="window.location.href='index.html'">Play Again</button>
+
+      <div id="content" class="ending-wrap" style="display:none;">
+        <img src="images/bharath.png" alt="Bharath & Kalpana" class="end-img"/>
+        <div class="ending-text" id="endtext"></div>
+      </div>
+
+      <button id="restart" class="btn" style="display:none;margin-top:20px;" onclick="window.location.href='index.html'">Play Again</button>
     </div>
   </div>
 
   <script src="script.js"></script>
   <script>
-    const endingStory = `
-The mirror reforms slowly, its shards glowing with the warmth of reborn memories.
+    const txt = `The mirror reforms slowly, its shards glowing with the warmth of reborn memories.
 Kalpana gazes into the reflection — not of fear, but of peace.
 
 The voice that once haunted her now feels familiar... comforting.
@@ -26,12 +51,12 @@ The voice that once haunted her now feels familiar... comforting.
 
 The mansion fades into silence.
 What was once a prison of illusions now stands as a sanctuary of truth.
-In the reflection, two souls — united beyond the glass — smile one last time.
-    `;
+In the reflection, two souls — united beyond the glass — smile one last time.`;
 
-  typeWriter(endText,'story',28, ()=>{
-      const restart=document.getElementById('restart');
-      setTimeout(()=>restart.style.display='inline-block',1000);
+    typeWriter(txt, 'story', 28, () => {
+      document.getElementById("content").style.display = "flex";
+      document.getElementById("endtext").innerText = txt;
+      setTimeout(() => document.getElementById("restart").style.display = "inline-block", 1200);
     });
   </script>
 </body>
