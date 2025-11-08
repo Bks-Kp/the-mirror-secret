@@ -24,30 +24,56 @@
 
   <script src="script.js"></script>
   <script>
+    // ✨ Final Chapter Storyline
     const txt6 = `
-The mirror quivers — its cracks glowing with crimson warmth.
-Every reflection you faced, every truth you chose, begins to converge.
+The mansion falls silent.
 
-Through the trembling glass, a familiar silhouette appears — calm, waiting, watching.
-The whispers of the mansion fade into a single heartbeat.
-The voice says softly: "Your heart was never lost, Kalpana... only hidden."
+Every mirror flickers with fragments of the choices she’s made.
+Heart. Silence. Memory. Light. Bharath.
 
-You feel the air still, your reflection gazing back with quiet strength.
-A stitched name glows at the center of the mirror — *Bharath*.
-It waits for your final choice.
+Each reflection merges into one — her true self, standing at the final mirror.
+Through the shimmering surface, she sees him: Bharath.
+He smiles softly, waiting — not as a ghost, but as a promise.
+
+The mirror hums with two paths.
+To touch it is to cross into light... to break it is to let go forever.
+
+Kalpana takes a breath.
+Her heart whispers: what will you choose?
 `;
 
-    // Typewriter + on-finish callback
-    typeWriter(txt6, 'story', 28, ()=> saveProgress('chapter6'));
+    // ⌛ Typewriter animation
+    function typeWriter(text, id, speed, callback) {
+      let i = 0;
+      const el = document.getElementById(id);
+      function typing() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        } else if (callback) callback();
+      }
+      typing();
+    }
 
+    typeWriter(txt6, 'story', 28, () => saveProgress('chapter6'));
+
+    // 💡 Save progress (placeholder)
+    function saveProgress(chapter) {
+      localStorage.setItem("lastChapter", chapter);
+    }
+
+    // 🔀 Branch to correct ending
     function finalize(choice) {
       const msg = document.getElementById("final-msg");
+
       if (choice === 'touched') {
-        msg.innerHTML = "The mirror melts into light, and your reflection smiles back. You are free.";
-        setTimeout(() => window.location.href = "ending.html", 3000);
-      } else if (choice === 'broken') {
-        msg.innerHTML = "The mirror shatters — silence swallows the room. Yet a faint glow remains... the story incomplete.";
-        setTimeout(() => window.location.href = "ending.html", 4000);
+        msg.innerHTML = "The mirror glows softly... her reflection smiles back. The curse breaks.";
+        setTimeout(() => window.location.href = "ending.html", 3500);
+      } 
+      else if (choice === 'broken') {
+        msg.innerHTML = "Glass shatters like a scream — silence swallows the light.";
+        setTimeout(() => window.location.href = "ending2.html", 3500);
       }
     }
   </script>
