@@ -18,48 +18,65 @@ function typeWriter(text, elementId, speed = 28, callback) {
   typing();
 }
 
-// Save progress
+// Save current chapter progress
 function saveProgress(chapter) {
   localStorage.setItem("progress", chapter);
 }
 
-// Main Answer Checker (now fully working + case-insensitive)
+// ====== Case-insensitive exact or alternate match ======
 function checkTextAnswer(inputId, correctAnswer, altAnswers = [], nextPage) {
   const input = document.getElementById(inputId);
   const resultDiv = document.querySelector(".small");
-
   if (!input || !resultDiv) return;
 
   const userAnswer = input.value.trim().toLowerCase();
-  const correct = correctAnswer.toLowerCase();
-  const allAnswers = [correct, ...altAnswers.map(a => a.toLowerCase())];
+  const correct = correctAnswer.trim().toLowerCase();
+  const allAnswers = [correct, ...altAnswers.map(a => a.trim().toLowerCase())];
+  const isCorrect = allAnswers.includes(userAnswer);
 
-  if (allAnswers.includes(userAnswer)) {
-    resultDiv.innerHTML = "💖 The mirror hums softly... your heart responds.";
-    resultDiv.style.color = "crimson";
+  if (isCorrect) handleCorrect(resultDiv, nextPage);
+  else handleWrong(resultDiv, userAnswer);
+}
 
-    // Save progress
-    saveProgress(nextPage);
+// ====== Case-insensitive prefix (partial) match ======
+function checkPrefixAnswer(inputId, correctKeyword, nextPage) {
+  const input = document.getElementById(inputId);
+  const resultDiv = document.querySelector(".small");
+  if (!input || !resultDiv) return;
 
-    // Fade out transition before redirect
-    document.body.style.transition = "opacity 1.2s ease";
-    document.body.style.opacity = "0";
+  const userAnswer = input.value.trim().toLowerCase();
+  const key = correctKeyword.trim().toLowerCase();
 
-    // Add delay then redirect to next chapter
-    setTimeout(() => {
-      console.log("Redirecting to:", nextPage);
-      window.location.href = nextPage; // ✅ Proper redirect
-    }, 1200);
-  } else if (userAnswer.length > 0) {
-    resultDiv.innerHTML = "The reflection remains silent... try again.";
-    resultDiv.style.color = "#bbb";
-  } else {
+  // allow "i remember your smile", "your smile", "smile always" etc.
+  const isCorrect =
+    userAnswer.includes(key) ||
+    userAnswer.startsWith(key) ||
+    userAnswer.endsWith(key);
+
+  if (isCorrect) handleCorrect(resultDiv, nextPage);
+  else handleWrong(resultDiv, userAnswer);
+}
+
+// ====== Shared feedback + transition ======
+function handleCorrect(resultDiv, nextPage) {
+  resultDiv.innerHTML = "💖 The mirror glows — the memory reforms...";
+  resultDiv.style.color = "crimson";
+  document.body.style.transition = "opacity 1.2s ease";
+  document.body.style.opacity = "0";
+  setTimeout(() => (window.location.href = nextPage), 1200);
+}
+
+function handleWrong(resultDiv, answer) {
+  if (!answer) {
     resultDiv.innerHTML = "The mirror waits for your whisper...";
     resultDiv.style.color = "#888";
+  } else {
+    resultDiv.innerHTML = "The reflection stays silent... try again.";
+    resultDiv.style.color = "#bbb";
   }
 }
 
-// Optional reset for restart
+// Optional reset for replay
 function clearProgress() {
   localStorage.removeItem("progress");
 }
