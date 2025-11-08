@@ -84,7 +84,6 @@ button:hover, .choice:hover {
 /* ====== Hint Box ====== */
 input[type="text"] {
   background: transparent;
-  color: #fff;
   border: 1px solid crimson;
   border-radius: 8px;
   text-align: center;
