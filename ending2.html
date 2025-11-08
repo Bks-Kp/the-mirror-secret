@@ -3,63 +3,128 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>The Mirror’s Secret — Broken Reflection</title>
+  <title>The Mirror’s Secret — Shattered Reflection</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .ending-wrap {
+    body {
+      font-family: Cambria, serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .end-container {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      text-align: left;
+      min-height: 100vh;
+      gap: 30px;
     }
-    .ending-text {
-      max-width: 420px;
-      line-height: 1.7;
-      font-size: 1.05rem;
-    }
+
     .end-img {
-      width: 220px;
+      width: 260px;
       border-radius: 12px;
-      filter: brightness(0.8) contrast(1.3);
-      box-shadow: 0 0 15px rgba(255,0,0,0.3);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+      opacity: 0;
+      transform: translateY(30px) scale(1.05);
+      filter: brightness(0.8) contrast(1.2);
+      transition: all 2s ease;
+    }
+
+    .end-img.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .end-text {
+      max-width: 600px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .end-text.show {
+      opacity: 1;
+    }
+
+    .btn {
+      display: none;
+      margin-top: 25px;
+    }
+
+    /* Red shimmer animation for eerie tone */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      }
+      20%, 24%, 55% {
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+      }
+    }
+
+    .end-img.show {
+      animation: flicker 3s infinite ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .end-text {
+        max-width: 90%;
+        font-size: 1rem;
+      }
+      .end-img {
+        width: 200px;
+      }
     }
   </style>
 </head>
+
 <body style="background: url('images/ending2.png') center/cover fixed no-repeat;">
-  <div class="page-wrap">
-    <div class="panel">
-      <h1 class="h-title">Epilogue — Shattered Reflections</h1>
-      <div id="story" class="typewriter"></div>
-
-      <div id="content" class="ending-wrap" style="display:none;">
-        <img src="images/bharath2.png" alt="Broken Reflection" class="end-img"/>
-        <div class="ending-text" id="endtext"></div>
-      </div>
-
-      <button id="restart" class="btn" style="display:none;margin-top:20px;" onclick="window.location.href='index.html'">Play Again</button>
-    </div>
+  <div class="end-container">
+    <img src="images/bharath2.png" id="endImg" class="end-img" alt="Broken Reflection">
+    <div id="endText" class="end-text"></div>
+    <button id="restart" class="btn" onclick="window.location.href='index.html'">Play Again</button>
   </div>
 
-  <script src="script.js"></script>
   <script>
-    const txt2 = `The mirror explodes in a scream of crimson light. Shards scatter across the floor — each one reflecting a different version of Kalpana. None of them look back.
+    const storyText = `The mirror explodes in a scream of crimson light. Shards scatter across the floor — each one reflecting a different version of Kalpana. None of them look back.
 
 The whispers fade... but the silence feels heavier than before.
 Her heartbeat slows, echoing faintly through the empty hall.
 
-The reflection of our future remains trapped within the glass, eyes filled with sorrow.
+The reflection of their future remains trapped within the glass, eyes filled with sorrow.
 He reaches out — but there is nothing left to touch.
 
 As the last light fades, only one whisper lingers in the dark:
 "Some mirrors aren’t meant to be broken."`;
 
-    typeWriter(txt2, 'story', 28, () => {
-      document.getElementById("content").style.display = "flex";
-      document.getElementById("endtext").innerText = txt2;
-      setTimeout(() => document.getElementById("restart").style.display = "inline-block", 1200);
-    });
+    const img = document.getElementById("endImg");
+    const textEl = document.getElementById("endText");
+    const restartBtn = document.getElementById("restart");
+
+    function typeWriter(text, element, speed, callback) {
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        } else if (callback) callback();
+      }
+      typing();
+    }
+
+    // Sequence animation
+    setTimeout(() => {
+      img.classList.add("show");
+      setTimeout(() => {
+        textEl.classList.add("show");
+        typeWriter(storyText, textEl, 28, () => {
+          setTimeout(() => restartBtn.style.display = "inline-block", 1000);
+        });
+      }, 2000);
+    }, 600);
   </script>
 </body>
 </html>
