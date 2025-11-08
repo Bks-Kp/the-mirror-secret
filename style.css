@@ -25,7 +25,7 @@ body {
   background: transparent;
   border: 2px solid rgba(255, 0, 0, 0.15);
   border-radius: 16px;
-  padding: 30px;
+  padding: 25px 30px;
   max-width: 800px;
   width: 90%;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
@@ -36,7 +36,6 @@ body {
 /* ====== Title ====== */
 .h-title {
   color: #ff1a1a;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: bold;
   font-size: 2rem;
   margin-bottom: 20px;
@@ -46,7 +45,7 @@ body {
 /* ====== Story Text ====== */
 #story {
   font-size: 1.15rem;
-  line-height: 1.7rem;
+  line-height: 1.6rem;
   color: #ffffff;
   white-space: pre-line;
   text-align: center;
@@ -60,7 +59,7 @@ button, .choice {
   color: crimson;
   border: 2px solid crimson;
   border-radius: 10px;
-  padding: 10px 25px;
+  padding: 8px 20px;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
@@ -84,12 +83,13 @@ button:hover, .choice:hover {
 /* ====== Hint Box ====== */
 input[type="text"] {
   background: transparent;
+  color: #fff;
   border: 1px solid crimson;
   border-radius: 8px;
   text-align: center;
   padding: 8px 12px;
   margin-top: 10px;
-  width: auto; /* auto width */
+  width: auto;
   display: inline-block;
   font-family: Cambria, serif;
   transition: 0.3s ease;
@@ -101,14 +101,14 @@ input[type="text"]:focus {
   outline: none;
 }
 
-/* ====== Hint + Tips ====== */
+/* ====== Small Text (Hints, Tips) ====== */
 .small {
   font-size: 0.9rem;
   color: #bbb;
   margin-top: 10px;
 }
 
-/* ====== Typewriter Animation ====== */
+/* ====== Typewriter Cursor Animation ====== */
 .typewriter {
   overflow: hidden;
   border-right: 0.12em solid crimson;
@@ -123,16 +123,85 @@ input[type="text"]:focus {
   }
 }
 
-/* ====== Mobile Optimization ====== */
-@media (max-width: 768px) {
+/* ====== Fade-in Animation for Panels ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel, .h-title, #story {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* ====== Responsive Design for Tablets ====== */
+@media (max-width: 1024px) {
   .h-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   #story {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.5rem;
   }
+  button, .choice {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+  }
+}
+
+/* ====== Responsive Design for Phones ====== */
+@media (max-width: 768px) {
   .panel {
-    width: 95%;
+    width: 92%;
     padding: 20px;
+  }
+
+  .h-title {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+
+  #story {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+  }
+
+  button, .choice {
+    font-size: 0.85rem;
+    padding: 7px 15px;
+  }
+
+  input[type="text"] {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .small {
+    font-size: 0.8rem;
+  }
+}
+
+/* ====== Ultra Small Devices (Phones < 480px) ====== */
+@media (max-width: 480px) {
+  .h-title {
+    font-size: 1.2rem;
+  }
+
+  #story {
+    font-size: 0.85rem;
+    line-height: 1.3rem;
+  }
+
+  button, .choice {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  input[type="text"] {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+
+  .small {
+    font-size: 0.75rem;
   }
 }
