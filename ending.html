@@ -6,23 +6,29 @@
   <title>The Mirror’s Secret — Ending</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .end-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+    body {
+      font-family: Cambria, serif;
+      color: white;
+      text-align: center;
       overflow: hidden;
     }
 
+    .end-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 30px;
+    }
+
     .end-img {
-      width: 240px;
+      width: 260px;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
       opacity: 0;
       transform: translateY(30px);
-      transition: all 1.5s ease;
+      transition: all 1.6s ease;
     }
 
     .end-img.show {
@@ -30,66 +36,40 @@
       transform: translateY(0);
     }
 
-    .end-img.move-up {
-      position: relative;
-      top: -120px;
-      left: -200px;
-      width: 220px;
-      transition: all 1.5s ease;
-    }
-
     .end-text {
-      opacity: 0;
-      max-width: 520px;
-      line-height: 1.7;
+      max-width: 600px;
       font-size: 1.05rem;
-      text-align: left;
-      color: white;
-      transform: translateY(20px);
-      transition: all 1.5s ease;
+      line-height: 1.8;
+      opacity: 0;
+      transition: opacity 2s ease;
     }
 
     .end-text.show {
       opacity: 1;
-      transform: translateY(0);
     }
 
-    .h-title {
-      color: crimson;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    #restart {
+    .btn {
       display: none;
       margin-top: 25px;
     }
 
     @media (max-width: 768px) {
-      .end-img.move-up {
-        left: 0;
-        top: -80px;
-        width: 180px;
-      }
       .end-text {
         max-width: 90%;
-        text-align: center;
+        font-size: 1rem;
+      }
+      .end-img {
+        width: 200px;
       }
     }
   </style>
 </head>
 
 <body style="background: url('images/ending.png') center/cover fixed no-repeat;">
-  <div class="page-wrap">
-    <div class="panel">
-      <h1 class="h-title">Epilogue — The Reflection Reborn</h1>
-
-      <div class="end-container">
-        <img src="images/bharath.png" id="endImg" class="end-img" alt="Bharath & Kalpana">
-        <div id="endText" class="end-text"></div>
-        <button id="restart" class="btn" onclick="window.location.href='index.html'">Play Again</button>
-      </div>
-    </div>
+  <div class="end-container">
+    <img src="images/bharath.png" id="endImg" class="end-img" alt="Bharath & Kalpana">
+    <div id="endText" class="end-text"></div>
+    <button id="restart" class="btn" onclick="window.location.href='index.html'">Play Again</button>
   </div>
 
   <script>
@@ -107,7 +87,6 @@ In the reflection, two souls — united beyond the glass — smile one last time
     const textEl = document.getElementById("endText");
     const restartBtn = document.getElementById("restart");
 
-    // Typewriter
     function typeWriter(text, element, speed, callback) {
       let i = 0;
       function typing() {
@@ -124,14 +103,11 @@ In the reflection, two souls — united beyond the glass — smile one last time
     setTimeout(() => {
       img.classList.add("show");
       setTimeout(() => {
-        img.classList.add("move-up");
-        setTimeout(() => {
-          textEl.classList.add("show");
-          typeWriter(storyText, textEl, 28, () => {
-            setTimeout(() => restartBtn.style.display = "inline-block", 1500);
-          });
-        }, 1500);
-      }, 1500);
+        textEl.classList.add("show");
+        typeWriter(storyText, textEl, 28, () => {
+          setTimeout(() => restartBtn.style.display = "inline-block", 1000);
+        });
+      }, 2000);
     }, 600);
   </script>
 </body>
