@@ -1,103 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>The Mirror’s Secret — Ending</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: url('images/ending.png') center/cover fixed no-repeat;
-      color: white;
-      text-align: center;
-      overflow: hidden;
-      margin: 0;
-    }
-
-    .ending-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.25);
-      animation: fadeIn 3s ease forwards;
-    }
-
-    .ending-img {
-      width: 300px;
-      opacity: 0;
-      animation: glowIn 4s ease forwards 2s;
-      filter: drop-shadow(0 0 10px crimson);
-    }
-
-    .typewriter {
-      font-family: "Merriweather", serif;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      max-width: 700px;
-      margin-top: 30px;
-      padding: 20px;
-      color: #fff;
-      background-color: rgba(30, 30, 30, 0.25);
-      border-radius: 15px;
-      opacity: 0;
-      animation: fadeText 2s ease forwards 3s;
-      text-align: center;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes glowIn {
-      from { opacity: 0; filter: drop-shadow(0 0 0px red); }
-      to { opacity: 1; filter: drop-shadow(0 0 12px crimson); }
-    }
-
-    @keyframes fadeText {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .end-button {
-      margin-top: 40px;
-      background: transparent;
-      border: 2px solid crimson;
-      color: crimson;
-      font-size: 1rem;
-      padding: 10px 25px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      display: none; /* Hidden initially */
-    }
-
-    .end-button:hover {
-      background: crimson;
-      color: black;
-      transform: scale(1.05);
-    }
-
-    .fade-in {
-      display: inline-block;
-      animation: showBtn 1.2s ease forwards;
-    }
-
-    @keyframes showBtn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
-<body>
-  <div class="ending-container">
-    <img src="images/bharath.png" alt="Bharath" class="ending-img" />
-    <div id="ending-text" class="typewriter"></div>
-    <button id="playAgain" class="end-button" onclick="restartGame()">Play Again</button>
+<body style="background: url('images/ending.png') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel">
+      <h1 class="h-title">Epilogue — The Reflection Reborn</h1>
+      <div id="story" class="typewriter"></div>
+      <img src="images/bharath.png" alt="Bharath" class="end-img" />
+      <button id="restart" class="btn" style="display:none" onclick="window.location.href='index.html'">Play Again</button>
+    </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
     const endingStory = `
 The mirror reforms slowly, its shards glowing with the warmth of reborn memories.
@@ -111,33 +29,10 @@ What was once a prison of illusions now stands as a sanctuary of truth.
 In the reflection, two souls — united beyond the glass — smile one last time.
     `;
 
-    function typeWriter(text, id, speed = 28, onComplete) {
-      let i = 0;
-      const el = document.getElementById(id);
-      function typing() {
-        if (i < text.length) {
-          el.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(typing, speed);
-        } else {
-          if (onComplete) onComplete();
-        }
-      }
-      typing();
-    }
-
-    function restartGame() {
-      window.location.href = "index.html";
-    }
-
-    // Start typing and show button after completion
-    window.onload = () => {
-      typeWriter(endingStory, "ending-text", 28, () => {
-        const btn = document.getElementById("playAgain");
-        btn.style.display = "inline-block";
-        btn.classList.add("fade-in");
-      });
-    };
+  typeWriter(endText,'story',28, ()=>{
+      const restart=document.getElementById('restart');
+      setTimeout(()=>restart.style.display='inline-block',1000);
+    });
   </script>
 </body>
 </html>
