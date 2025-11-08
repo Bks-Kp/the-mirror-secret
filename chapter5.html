@@ -7,17 +7,15 @@
 </head>
 <body style="background: url('images/chapter5-bg.jpg') center/cover fixed no-repeat;">
   <div class="page-wrap">
-    <div class="panel" role="main">
-      <h1 class="h-title">Chapter 5 — The Voice in the Dark</h1>
-
+    <div class="panel">
+      <h1 class="h-title">Chapter 5 — The Voice in the Dark</h-title>
       <div id="story" class="typewriter"></div>
 
       <div class="input">
-        <input id="answer5" type="text" placeholder="Hint: Type the name of person who loves you most ..." />
-        <div><button class="btn" onclick="checkTextAnswer('answer5','bharath',['bks','b k s','bharath k','bharath ks','bharath (heart)'],'chapter6.html')">Submit</button></div>
+        <input id="answer5" type="text" placeholder="Hint: The name the mirror calls..." />
+        <div><button class="btn" onclick="checkTextAnswer('answer5','bharath',['bks','b k s','bharath k','bharath ks'],'chapter6.html')">Submit</button></div>
       </div>
-
-      <div class="small">Spell the name the voice kept saying.</div>
+      <div class="small">Listen carefully — the voice knows your name.</div>
     </div>
   </div>
 
@@ -31,7 +29,7 @@ Tears burn her eyes. The mansion trembles as if recognizing the name.
 It was him. The one she lost. The reason she came here.
 
 The mirrors demand the truth. She must speak his name aloud to break the silence that binds her.`;
-    typeWriter(txt5,'story',28, ()=> saveProgress('chapter5'));
+   typeWriter(txt5,'story',28, ()=> saveProgress('chapter5'));
   </script>
 </body>
 </html>
