@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>The Mirror’s Secret — Broken Reflection</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: url('images/ending.png') center/cover fixed no-repeat;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .ending-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.25);
+      animation: fadeIn 3s ease forwards;
+    }
+
+    .ending-img {
+      width: 300px;
+      opacity: 0;
+      animation: fadeShatter 4s ease forwards 2s;
+      filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.4));
+    }
+
+    .typewriter {
+      font-family: "Merriweather", serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-top: 30px;
+      padding: 20px;
+      color: #fff;
+      background-color: rgba(30, 30, 30, 0.25);
+      border-radius: 15px;
+      opacity: 0;
+      animation: fadeText 2s ease forwards 3s;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeShatter {
+      0% { opacity: 0; transform: scale(0.95) rotate(0deg); filter: drop-shadow(0 0 0 crimson); }
+      50% { opacity: 1; transform: scale(1) rotate(2deg); filter: drop-shadow(0 0 12px crimson); }
+      100% { opacity: 1; transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 5px rgba(255,0,0,0.3)); }
+    }
+
+    @keyframes fadeText {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .end-button {
+      margin-top: 40px;
+      background: transparent;
+      border: 2px solid crimson;
+      color: crimson;
+      font-size: 1rem;
+      padding: 10px 25px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      display: none;
+    }
+
+    .end-button:hover {
+      background: crimson;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .fade-in {
+      display: inline-block;
+      animation: showBtn 1.2s ease forwards;
+    }
+
+    @keyframes showBtn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="ending-container">
+    <img src="images/Bharath.png" alt="Broken Reflection" class="ending-img" />
+    <div id="ending-text" class="typewriter"></div>
+    <button id="playAgain" class="end-button" onclick="restartGame()">Play Again</button>
+  </div>
+
+  <script>
+    const endingStory = `
+The mirror explodes in a scream of crimson light.
+Shards scatter across the floor — each one reflecting a different version of Kalpana.
+None of them look back.
+
+The whispers fade... but the silence feels heavier than before.
+Her heartbeat slows, echoing faintly through the empty hall.
+
+The reflection of Bharath remains trapped within the glass, eyes filled with sorrow.
+He reaches out — but there is nothing left to touch.
+
+As the last light fades, only one whisper lingers in the dark:
+"Some mirrors aren’t meant to be broken."`;
+
+    function typeWriter(text, id, speed = 28, onComplete) {
+      let i = 0;
+      const el = document.getElementById(id);
+      function typing() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        } else {
+          if (onComplete) onComplete();
+        }
+      }
+      typing();
+    }
+
+    function restartGame() {
+      window.location.href = "index.html";
+    }
+
+    window.onload = () => {
+      typeWriter(endingStory, "ending-text", 28, () => {
+        const btn = document.getElementById("playAgain");
+        btn.style.display = "inline-block";
+        btn.classList.add("fade-in");
+      });
+    };
+  </script>
+</body>
+</html>
