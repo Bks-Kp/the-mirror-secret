@@ -1,66 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Mirror’s Secret</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Crimson+Text&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: url('images/intro.png') center/cover fixed no-repeat;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #ff2e2e;
-      font-family: 'Crimson Text', serif;
-    }
-    .container {
-      background: rgba(50, 50, 50, 0.15);
-      border-radius: 25px;
-      padding: 40px 60px;
-      text-align: center;
-      max-width: 700px;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-    }
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-      margin-bottom: 20px;
-    }
-    #intro-text {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      min-height: 100px;
-      color: #fff;
-      white-space: pre-line;
-    }
-    .start-btn {
-      margin-top: 30px;
-      padding: 12px 30px;
-      border: 1px solid #ff2e2e;
-      border-radius: 8px;
-      background: rgba(255, 0, 0, 0.1);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .start-btn:hover {
-      background: #ff2e2e;
-      color: black;
-      box-shadow: 0 0 15px #ff2e2e;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
-    <h1>THE MIRROR’S SECRET</h1>
-    <div id="intro-text" class="typewriter"></div>
-    <button class="start-btn" onclick="startGame()">Start Game</button>
+<body style="background: url('images/intro.png') center/cover fixed no-repeat;">
+  <div class="page-wrap">
+    <div class="panel">
+      <h1 class="h-title">THE MIRROR’S SECRET</h1>
+      <div id="story" class="typewriter"></div>
+      <button class="btn" onclick="window.location.href='chapter1.html'">Start Game</button>
+    </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
     const intro = `Kalpana is trapped inside an abandoned mansion where every mirror reflects an 
     alternate reality. Each reflection shows a world that feels familiar — 
@@ -78,21 +33,7 @@
 
     Her journey begins now.`;
 
-    let i = 0;
-    function typeWriter(text, id, speed) {
-      const el = document.getElementById(id);
-      if (i < text.length) {
-        el.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(() => typeWriter(text, id, speed), speed);
-      }
-    }
-
-    typeWriter(intro, 'intro-text', 30);
-
-    function startGame() {
-      window.location.href = "chapter1.html";
-    }
+ typeWriter(intro, "story", 28);
   </script>
 </body>
 </html>
