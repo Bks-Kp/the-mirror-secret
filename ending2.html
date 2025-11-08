@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: url('images/ending2.png') center/cover fixed no-repeat;
+      background: url('images/ending.png') center/cover fixed no-repeat;
       color: white;
       text-align: center;
       overflow: hidden;
@@ -24,15 +24,55 @@
       animation: fadeIn 3s ease forwards;
     }
 
-    .ending-img {
+    /* --- Shattered Bharath Image --- */
+    .shattered {
+      position: relative;
       width: 300px;
-      opacity: 0;
-      animation: fadeShatter 4s ease forwards 2s;
-      filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.4));
+      height: auto;
+      filter: drop-shadow(0 0 6px crimson);
+      animation: shake 1.2s ease forwards;
+    }
+
+    .shattered::before,
+    .shattered::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/bharath.png') center/cover no-repeat;
+      clip-path: polygon(0 0, 50% 10%, 30% 100%, 0% 100%);
+      opacity: 0.9;
+      animation: shardLeft 2.5s ease forwards;
+    }
+
+    .shattered::after {
+      clip-path: polygon(50% 0, 100% 10%, 100% 100%, 60% 100%);
+      animation: shardRight 2.5s ease forwards;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: none; }
+      25% { transform: rotate(1deg) translateX(2px); }
+      50% { transform: rotate(-1deg) translateX(-2px); }
+      75% { transform: rotate(0.5deg) translateY(1px); }
+    }
+
+    @keyframes shardLeft {
+      0% { transform: none; opacity: 1; }
+      100% { transform: translateX(-25px) rotate(-3deg); opacity: 0.8; }
+    }
+
+    @keyframes shardRight {
+      0% { transform: none; opacity: 1; }
+      100% { transform: translateX(25px) rotate(3deg); opacity: 0.8; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .typewriter {
-      font-family: "Merriweather", serif;
+      font-family: Cambria, serif;
       font-size: 1.2rem;
       line-height: 1.6;
       max-width: 700px;
@@ -44,17 +84,6 @@
       opacity: 0;
       animation: fadeText 2s ease forwards 3s;
       text-align: center;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeShatter {
-      0% { opacity: 0; transform: scale(0.95) rotate(0deg); filter: drop-shadow(0 0 0 crimson); }
-      50% { opacity: 1; transform: scale(1) rotate(2deg); filter: drop-shadow(0 0 12px crimson); }
-      100% { opacity: 1; transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 5px rgba(255,0,0,0.3)); }
     }
 
     @keyframes fadeText {
@@ -94,7 +123,7 @@
 </head>
 <body>
   <div class="ending-container">
-    <img src="images/bharath.png" alt="Broken Reflection" class="ending-img" />
+    <img src="images/bharath.png" alt="Broken Reflection" class="shattered" />
     <div id="ending-text" class="typewriter"></div>
     <button id="playAgain" class="end-button" onclick="restartGame()">Play Again</button>
   </div>
@@ -112,7 +141,8 @@ The reflection of Bharath remains trapped within the glass, eyes filled with sor
 He reaches out — but there is nothing left to touch.
 
 As the last light fades, only one whisper lingers in the dark:
-"Some mirrors aren’t meant to be broken."`;
+"Some mirrors aren’t meant to be broken."
+`;
 
     function typeWriter(text, id, speed = 28, onComplete) {
       let i = 0;
