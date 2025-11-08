@@ -2,7 +2,7 @@
 // THE MIRROR'S SECRET — SCRIPT
 // ==========================
 
-// Smooth typewriter effect for narration
+// Typewriter effect
 function typeWriter(text, elementId, speed = 28, callback) {
   let i = 0;
   const el = document.getElementById(elementId);
@@ -18,30 +18,38 @@ function typeWriter(text, elementId, speed = 28, callback) {
   typing();
 }
 
-// Save current chapter progress
+// Save progress
 function saveProgress(chapter) {
   localStorage.setItem("progress", chapter);
 }
 
-// Case-insensitive text answer checker
+// Main Answer Checker (now fully working + case-insensitive)
 function checkTextAnswer(inputId, correctAnswer, altAnswers = [], nextPage) {
   const input = document.getElementById(inputId);
   const resultDiv = document.querySelector(".small");
+
+  if (!input || !resultDiv) return;
+
   const userAnswer = input.value.trim().toLowerCase();
   const correct = correctAnswer.toLowerCase();
-
-  // Convert all alternate answers to lowercase for case-insensitive check
   const allAnswers = [correct, ...altAnswers.map(a => a.toLowerCase())];
 
   if (allAnswers.includes(userAnswer)) {
     resultDiv.innerHTML = "💖 The mirror hums softly... your heart responds.";
     resultDiv.style.color = "crimson";
+
+    // Save progress
     saveProgress(nextPage);
 
-    // Fade transition before moving to next chapter
+    // Fade out transition before redirect
     document.body.style.transition = "opacity 1.2s ease";
     document.body.style.opacity = "0";
-    setTimeout(() => (window.location.href = nextPage), 1000);
+
+    // Add delay then redirect to next chapter
+    setTimeout(() => {
+      console.log("Redirecting to:", nextPage);
+      window.location.href = nextPage; // ✅ Proper redirect
+    }, 1200);
   } else if (userAnswer.length > 0) {
     resultDiv.innerHTML = "The reflection remains silent... try again.";
     resultDiv.style.color = "#bbb";
@@ -51,7 +59,7 @@ function checkTextAnswer(inputId, correctAnswer, altAnswers = [], nextPage) {
   }
 }
 
-// Optional — clear save (use if restarting)
+// Optional reset for restart
 function clearProgress() {
   localStorage.removeItem("progress");
 }
