@@ -1,204 +1,88 @@
-/* ==============================
-   THE MIRROR’S SECRET 
-   ============================== */
-
-/* ====== Global ====== */
+/* Global */
 body {
   margin: 0;
-  padding: 0;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
+  font-family: Cambria, serif;
+  color: white;
+  background-color: black;
   overflow-x: hidden;
 }
-
-/* ====== Layout ====== */
 .page-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
 }
-
 .panel {
-  background: rgba(0, 0, 0, 0.25); /* 25% transparency for readability */
-  border: 1px solid rgba(255, 0, 0, 0.2);
-  border-radius: 16px;
-  padding: 40px 30px;
-  max-width: 750px;
-  width: 90%;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-  text-align: center;
-  animation: fadeIn 1.5s ease forwards;
+  background: rgba(0,0,0,0.25);
+  border-radius: 14px;
+  padding: 20px 25px;
+  max-width: 720px;
 }
-
-/* ====== Title ====== */
 .h-title {
-  color: #ff1a1a;
-  font-weight: bold;
-  font-size: 2rem;
-  margin-bottom: 25px;
-  text-shadow: 0 0 14px rgba(255, 0, 0, 0.6);
-  animation: glowPulse 2.5s infinite ease-in-out;
+  color: crimson;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.typewriter {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  white-space: pre-wrap;
 }
 
-/* ====== Story Text ====== */
-#story {
-  font-size: 1.15rem;
-  line-height: 1.7rem;
-  color: #ffffff;
-  white-space: pre-line;
-  text-align: center;
-  margin: 20px auto 30px auto;
-  max-width: 90%;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-/* Input + Hint Styling */
-.input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-input[type="text"] {
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  font-family: Cambria, serif;
-  font-size: 1rem;
+/* Input */
+.input input {
+  width: 80%;
+  max-width: 260px;
+  background: transparent;
   border: 1px solid crimson;
-  border-radius: 6px;
-  padding: 10px 14px;
+  color: white;
   text-align: center;
-  width: auto;
-  min-width: 180px;
-  max-width: 90%;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
+  padding: 6px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.input input::placeholder {
+  color: #aaa;
+}
+.small {
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
-input[type="text"]::placeholder {
-  color: #ffbfbf;
-  opacity: 0.8;
-  text-align: center;
-  white-space: normal;   /* ✅ Allows wrapping */
-  overflow: visible;     /* ✅ Prevents truncation */
-  text-overflow: unset;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  background: rgba(0, 0, 0, 0.6);
-  border-color: #ff3333;
-}
-
-/* Button Styling */
-.btn {
+/* Buttons */
+.btn, .choice {
   background: transparent;
   color: crimson;
   border: 1px solid crimson;
   border-radius: 8px;
-  font-family: Cambria, serif;
-  font-size: 1rem;
-  padding: 8px 20px;
+  padding: 8px 18px;
   cursor: pointer;
   transition: all 0.25s ease;
-}
-
-.btn:hover {
-  background: crimson;
-  color: black;
-}
-
-/* ====== Tip / Small Text ====== */
-.small {
-  font-size: 0.9rem;
-  color: #bbb;
   margin-top: 10px;
 }
-
-/* ====== Typewriter Effect ====== */
-.typewriter {
-  overflow: hidden;
-  border-right: 0.12em solid crimson;
-  white-space: pre-wrap;
-  margin: 0 auto;
-  animation: blink 0.8s infinite;
+.btn:hover, .choice:hover {
+  background: crimson;
+  color: black;
+  box-shadow: 0 0 12px rgba(220,20,60,0.7);
+  transform: scale(1.05);
 }
 
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+/* End image */
+.end-img {
+  display: block;
+  margin: 25px auto;
+  max-width: 260px;
+  border-radius: 8px;
+}
+.end-img.shattered {
+  filter: brightness(0.7) contrast(1.4);
 }
 
-/* ====== Animations ====== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { text-shadow: 0 0 14px rgba(255, 0, 0, 0.6); }
-  50% { text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
-}
-
-/* ====== Responsive Design ====== */
-@media (max-width: 768px) {
-  .panel {
-    width: 92%;
-    padding: 25px;
-  }
-
-  .h-title {
-    font-size: 1.4rem;
-  }
-
-  #story {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  input[type="text"] {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-  }
-
-  .btn {
-    font-size: 0.9rem;
-    padding: 7px 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .h-title {
-    font-size: 1.2rem;
-  }
-
-  #story {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
-  }
-
-  input[type="text"] {
-    font-size: 0.85rem;
-    padding: 6px 8px;
-  }
-
-  .btn {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-  }
-
-  .small {
-    font-size: 0.75rem;
-  }
+/* Responsive */
+@media (max-width: 600px) {
+  .panel { padding: 15px; max-width: 92%; }
+  .h-title { font-size: 1.4rem; }
+  .typewriter { font-size: 0.95rem; }
 }
